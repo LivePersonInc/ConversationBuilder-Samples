@@ -1,0 +1,19 @@
+{
+  "title": "Button with URL",
+  "tooltip": "Click me!",
+  "type": "button",
+  "style": {
+    "color": "#FFF",
+    "background-color": "#3E47A0",
+    "size": "medium"
+  },
+  "click": {
+    "actions": [
+      {
+        "type": "link",
+        "uri": "https://www.liveperson.com",
+        "target": "blank"
+      }
+    ]
+  }
+}
