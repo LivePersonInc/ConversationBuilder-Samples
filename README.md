@@ -16,4 +16,5 @@ If you wish to contribute a sample or provide a fix or update to a sample please
 
 ### Sample Types
 - **Bot Samples** - Please create a folder with a name that describes the bot containing the exported bot, intents, and entities. Also create a readme.md file containing any instructions for importing and running the bot. Include a description of the bot and it's functionality. Any relevant screenshots or code snippets should also be included in the readme.
-- **Code Snippets** - Please create a folder that either contains the code files, or the snippets in the readme.md.  The readme should include and information on where the code snippet is used, what it does, and any special instructions.  Include screenshots and step by step instructions if it makes sense to do so.
+- **Faas Samples** - Please create a folder including the FaaS code (with any customer/account information removed), as well as a readme.md file including the purpose, context, and other details around usage.
+- **Code Snippets** - Please create a folder that either contains the code files, or the snippets in the readme.md.  The readme should include and information on where the code snippet is used, what it does, and any special instructions. Include screenshots and step by step instructions if it makes sense to do so.
