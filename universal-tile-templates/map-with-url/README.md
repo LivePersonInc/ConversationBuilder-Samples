@@ -1,5 +1,7 @@
 # Map With URL
 
+This template renders a single map image, displaying the map for the provided `la` & `lo` coordinates (latitude & longitude). Clicking on the map image triggers a "link" action which navigates the user to a provided URI. This template overwrites the default map click behavior and is useful when you want to navigate to a different web page on click.
+
 ![map-with-url](Map_With_URL.jpg)
 
 ```json

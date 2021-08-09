@@ -1,5 +1,7 @@
 # Map With Button
 
+This template renders a map image along with a button. The map is displayed for the provided `la` & `lo` coordinates (latitude & longitude). Clicking on the map image opens the location in Google Maps in a new browser tab. Clicking on the button triggers a "link" action which navigates the user to a provided URI.
+
 ![map-with-button](Map_With_Button.jpg)
 
 ```json

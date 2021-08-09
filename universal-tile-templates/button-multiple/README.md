@@ -1,5 +1,7 @@
 # Multiple Buttons
 
+This template renders three buttons, each with a "link" action type to direct to a distinct URL.
+
 ![button-multiple](Button_Multiple.jpg)
 
 ```json

@@ -1,5 +1,7 @@
 # Multi Action Button
 
+This template renders a button which performs two actions when clicked. The button sends the text "Button Clicked!" to the bot and directs the user to [https://www.liveperson.com](https://www.liveperson.com).
+
 ![button-multi-action](Button_multi_Action.jpg)
 
 ```json
