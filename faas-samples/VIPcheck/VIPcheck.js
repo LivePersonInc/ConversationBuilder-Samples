@@ -31,7 +31,7 @@ function lambda(input, callback) {
 
     let secretClient = Toolbelt.SecretClient();
     secretClient
-      .readSecret("API_KEY")
+      .readSecret("API_KEY") // I'm storing my API key as a secret (https://developers.liveperson.com/liveperson-functions-developing-with-faas-storing-secrets.html)
       .then(mySecret => {
         let value = mySecret.value;
         API_KEY = value;
@@ -71,7 +71,7 @@ function lambda(input, callback) {
         })
       })
       .catch(error => {
-        console.error(`Failed during secret operation with ${err.message}`);
+        console.error(`Failed during secret operation with ${error.message}`);
         callback(error, null);
       });
 }
