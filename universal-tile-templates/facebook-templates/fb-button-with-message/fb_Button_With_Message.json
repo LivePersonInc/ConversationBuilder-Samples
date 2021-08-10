@@ -1,0 +1,32 @@
+{
+    "type": "vertical",
+    "elements": [
+      {
+        "type": "vertical",
+        "elements": [
+          {
+            "type": "text",
+            "tooltip": "Roar!",
+            "tag": "title",
+            "text": "This is the New Japan Lion"
+          },
+          {
+            "type": "button",
+            "tooltip": "Click me!",
+            "title": "New Japan",
+            "click": {
+              "actions": [
+                {
+                  "type": "link",
+                  "uri": "https://www.njpw1972.com",
+                  "target": "blank"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "tag": "button"
+}
+  
