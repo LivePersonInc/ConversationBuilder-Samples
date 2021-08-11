@@ -1,6 +1,6 @@
 # Horizontal 4 Images
 
-This tempalate renders four "shoe" images for our users, each clickable with a "publishText" action type. Clicking on any one shoe image will return the text "Sneaker" along with the number for that particular shoe.
+This template renders four "shoe" images for our users, each clickable with a "publishText" action type. Clicking on any one shoe image will return the text "Sneaker" along with the number for that particular shoe.
 
 **Note**: When using in a deployed web messaging bot, the URL `https://i.imgur.com` will need to be whitelisted to display the images.
 
