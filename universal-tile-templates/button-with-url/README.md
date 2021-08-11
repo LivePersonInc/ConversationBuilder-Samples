@@ -1,5 +1,7 @@
 # Button With URL
 
+This template renders a button which performs a single "link" action when clicked. Clicking this button will navigate the user to [https://www.liveperson.com](https://www.liveperson.com) in a new tab.
+
 ![button-with-url](Button_With_URL.jpg)
 
 ```json

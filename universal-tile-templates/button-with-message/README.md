@@ -1,5 +1,7 @@
 # Button With Message
 
+This template renders a button which performs a single "publishText" action when clicked. Clicking this button will send the text "Button Clicked!" to the bot.
+
 ![button-with-message](Button_With_Message.jpg)
 
 ```json
