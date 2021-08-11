@@ -1,6 +1,6 @@
 # Image With Button And Text
 
-This tempalate renders a vertically formatted image, button, and text card. Clicking on the button triggers a "link" action which navigates the user to [https://www.liveperson.com](https://www.liveperson.com).
+This template renders a vertically formatted image, button, and text card. Clicking on the button triggers a "link" action which navigates the user to [https://www.liveperson.com](https://www.liveperson.com).
 
 **Note**: When using in a deployed web messaging bot, the URL `https://i.imgur.com` will need to be whitelisted to display the image.
 
