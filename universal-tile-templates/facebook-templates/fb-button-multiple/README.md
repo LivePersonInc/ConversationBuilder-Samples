@@ -1,6 +1,6 @@
 # Facebook Multiple Buttons
 
-This template renders a title and three buttons, each with a "link" action type to direct to a distinct URL.
+This template renders a title and three buttons, each with a "link" action type to direct to a distinct URL. More information on Facebook Button Templates can be found in our [developer documentation](https://developers.liveperson.com/facebook-messenger-templates-button-template.html).
 
 > **Note**: To display these buttons, all URL domains must be whitelisted on the Facebook platform. Please see [our documentation](https://developers.liveperson.com/facebook-messenger-templates-introduction.html#facebook-messenger-setup) for guidance on how to whitelist domains in Facebook.
 
