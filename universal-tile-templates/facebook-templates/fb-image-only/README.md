@@ -1,6 +1,6 @@
 # Facebook Image Only
 
-This template renders a generic image interaction which contains an image along with a title. More information on Facebook Generic Templates can be found in our [developer documentation](https://developers.liveperson.com/facebook-messenger-templates-generic-template.html).
+This template renders a generic image interaction which contains an image along with a title. More information on Facebook Generic Templates can be found in our [developer documentation](https://developers.liveperson.com/facebook-messenger-templates-generic-template.html) and [Facebook's Generic Template reference](https://developers.facebook.com/docs/messenger-platform/reference/templates/generic).
 
 > **Note**: To display this interaction, all URL domains for images must be whitelisted on the Facebook platform. Please see [our documentation](https://developers.liveperson.com/facebook-messenger-templates-introduction.html#facebook-messenger-setup) for guidance on how to whitelist domains in Facebook.
 

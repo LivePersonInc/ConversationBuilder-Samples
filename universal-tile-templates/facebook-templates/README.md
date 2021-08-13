@@ -2,7 +2,7 @@
 
 This directory contains Universal Interaction templates customized to display rich content on Facebook Messenger.
 
-For information on creating Facebook templates, please see our [developer documentation](https://developers.liveperson.com/facebook-messenger-templates-introduction.html).
+For more information on creating Facebook templates, please see our [developer documentation](https://developers.liveperson.com/facebook-messenger-templates-introduction.html) and [Facebook's Message Templates documentation](https://developers.facebook.com/docs/messenger-platform/send-messages/templates).
 
 Facebook interactions are limited in capability compared to the full features that are available on other channels, such as web messaging. Some of these limitations include:
 

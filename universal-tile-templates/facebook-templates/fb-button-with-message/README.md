@@ -1,6 +1,6 @@
 # Facebook Button With Message
 
-This template renders a title and button which performs a single "publishText" action when clicked. Clicking this button will send the text "Button Clicked!" to the bot. More information on Facebook Button Templates can be found in our [developer documentation](https://developers.liveperson.com/facebook-messenger-templates-button-template.html).
+This template renders a title and button which performs a single "publishText" action when clicked. Clicking this button will send the text "Button Clicked!" to the bot. More information on Facebook Button Templates can be found in our [developer documentation](https://developers.liveperson.com/facebook-messenger-templates-button-template.html) and [Facebook's Button Template reference](https://developers.facebook.com/docs/messenger-platform/reference/templates/button).
 
 > **Note**: The visible response shown in the conversation will be whatever is listed as the button element's title (ex: "Click me!"). However, the "click" action will send to the bot whatever is listed as the text of the action object (ex: "Button Clicked!"). The bot should be configured to process the payload from the action object and not the title of the button.
 
