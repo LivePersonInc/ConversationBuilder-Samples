@@ -1,0 +1,24 @@
+{
+    "type": "vertical",
+    "elements": [
+      {
+        "type": "vertical",
+        "elements": [
+          {
+            "type": "text",
+            "tooltip": "Nice to see you!",
+            "tag": "title",
+            "text": "Here is a title element"
+          },
+          {
+            "type": "text",
+            "tooltip": "Here is your subtitle",
+            "tag": "subtitle",
+            "text": "Here is a subtitle element"
+          }
+        ]
+      }
+    ],
+    "tag": "generic"
+}
+  

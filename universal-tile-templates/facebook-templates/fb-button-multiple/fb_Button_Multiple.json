@@ -1,0 +1,59 @@
+{
+    "type": "vertical",
+    "elements": [
+      {
+        "type": "vertical",
+        "elements": [
+          {
+            "type": "text",
+            "tooltip": "Multi-button display",
+            "tag": "title",
+            "text": "Multi-button display"
+          },
+          {
+            "title": "Learn More",
+            "tooltip": "Click me!",
+            "type": "button",
+            "click": {
+              "actions": [
+                {
+                  "type": "link",
+                  "uri": "https://www.liveperson.com",
+                  "target": "blank"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Sales & Marketing",
+            "tooltip": "Click me!",
+            "type": "button",
+            "click": {
+              "actions": [
+                {
+                  "type": "link",
+                  "uri": "https://www.liveperson.com/solutions/sales-and-marketing",
+                  "target": "blank"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Conversation Builder",
+            "tooltip": "Click me!",
+            "type": "button",
+            "click": {
+              "actions": [
+                {
+                  "type": "link",
+                  "uri": "https://www.liveperson.com/products/conversation-builder",
+                  "target": "blank"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+  "tag": "button"
+}

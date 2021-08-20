@@ -1,0 +1,31 @@
+{
+  "type": "vertical",
+  "elements": [
+    {
+      "type": "vertical",
+      "elements": [
+        {
+          "type": "text",
+          "tooltip": "Button with URL",
+          "tag": "title",
+          "text": "Button with URL"
+        },
+        {
+          "title": "Click me!",
+          "tooltip": "Click me!",
+          "type": "button",
+          "click": {
+            "actions": [
+              {
+                "type": "link",
+                "uri": "https://www.liveperson.com",
+                "target": "blank"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "tag": "button"
+}

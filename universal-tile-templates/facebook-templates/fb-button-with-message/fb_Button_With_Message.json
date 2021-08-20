@@ -1,0 +1,31 @@
+{
+  "type": "vertical",
+  "elements": [
+    {
+      "type": "vertical",
+      "elements": [
+        {
+          "type": "text",
+          "tooltip": "Button with Message",
+          "tag": "title",
+          "text": "Button with Message"
+        },
+        {
+          "title": "Click me!",
+          "tooltip": "Click me!",
+          "type": "button",
+          "click": {
+            "actions": [
+              {
+                "type": "publishText",
+                "text": "Button Clicked!"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "tag": "button"
+}
+    

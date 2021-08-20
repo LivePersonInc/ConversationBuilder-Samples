@@ -1,0 +1,145 @@
+{
+  "type": "carousel",
+  "elements": [
+    {
+      "type": "vertical",
+      "elements": [
+        {
+          "type": "vertical",
+          "elements": [
+            {
+              "type": "image",
+              "url": "https://i.imgur.com/7nSKrd0.png",
+              "tooltip": "image"
+            },
+            {
+              "type": "text",
+              "tag": "title",
+              "text": "Greetings from LivePerson",
+              "tooltip": "Title"
+            },
+            {
+              "type": "text",
+              "tag": "subtitle",
+              "text": "Carousel card #1",
+              "tooltip": "subtitle"
+            },
+            {
+              "title": "Learn More",
+              "tooltip": "Click me!",
+              "type": "button",
+              "click": {
+                "actions": [
+                  {
+                    "type": "link",
+                    "uri": "https://www.liveperson.com",
+                    "target": "blank"
+                  }
+                ]
+              }
+            },
+            {
+              "title": "Sales & Marketing",
+              "tooltip": "Click me!",
+              "type": "button",
+              "click": {
+                "actions": [
+                  {
+                    "type": "link",
+                    "uri": "https://www.liveperson.com/solutions/sales-and-marketing",
+                    "target": "blank"
+                  }
+                ]
+              }
+            },
+            {
+              "title": "Conversation Builder",
+              "tooltip": "Click me!",
+              "type": "button",
+              "click": {
+                "actions": [
+                  {
+                    "type": "link",
+                    "uri": "https://www.liveperson.com/products/conversation-builder",
+                    "target": "blank"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "tag": "generic"
+    },
+    {
+      "type": "vertical",
+      "elements": [
+        {
+          "type": "vertical",
+          "elements": [
+            {
+              "type": "image",
+              "url": "https://i.imgur.com/7nSKrd0.png",
+              "tooltip": "image"
+            },
+            {
+              "type": "text",
+              "tag": "title",
+              "text": "Greetings from LivePerson",
+              "tooltip": "Title"
+            },
+            {
+              "type": "text",
+              "tag": "subtitle",
+              "text": "Carousel card #2",
+              "tooltip": "subtitle"
+            },
+            {
+              "title": "Learn More",
+              "tooltip": "Click me!",
+              "type": "button",
+              "click": {
+                "actions": [
+                  {
+                    "type": "link",
+                    "uri": "https://www.liveperson.com",
+                    "target": "blank"
+                  }
+                ]
+              }
+            },
+            {
+              "title": "Sales & Marketing",
+              "tooltip": "Click me!",
+              "type": "button",
+              "click": {
+                "actions": [
+                  {
+                    "type": "link",
+                    "uri": "https://www.liveperson.com/solutions/sales-and-marketing",
+                    "target": "blank"
+                  }
+                ]
+              }
+            },
+            {
+              "title": "Conversation Builder",
+              "tooltip": "Click me!",
+              "type": "button",
+              "click": {
+                "actions": [
+                  {
+                    "type": "link",
+                    "uri": "https://www.liveperson.com/products/conversation-builder",
+                    "target": "blank"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "tag": "generic"
+    }
+  ]
+}
