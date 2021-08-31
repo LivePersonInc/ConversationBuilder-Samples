@@ -1,6 +1,6 @@
 # Shift Status Cache
 
-The purpose of this function is to access data from the Shift STatus API and store that data within the Conversation Context Service. Reporting APIs such as Shift Status are not intended for use at a conversational scale. As opposed to accessing the APIs directly from a Conversation Builder bot, this function will cache the data from this API. That data can then be accessed for routing and messaging decisions using bot context methods to access the Conversation Context Service.
+The purpose of this function is to access data from the Shift Status API and store that data within the Conversation Context Service. Reporting APIs such as Shift Status are not intended for use at a conversational scale. As opposed to accessing the APIs directly from a Conversation Builder bot, this function will cache the data from this API. That data can then be accessed for routing and messaging decisions using bot context methods to access the Conversation Context Service.
 
 This process was originally documented on our [developers forum](https://talkyard.livepersonai.com/-24/caching-shift-status-api-data-w-faas-conversation-context-service).
 
