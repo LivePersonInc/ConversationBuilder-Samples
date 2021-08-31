@@ -116,7 +116,7 @@ function lambda(input, callback) {
 }
 ```
 
-    * Using the Secret Storage, Context Service, and LP Clients from the `lp-faas-toolbelt` package, this function calls the current queue health API and passes that to a function to call and update the Conversation Context Service.
+> Using the Secret Storage, Context Service, and LP Clients from the `lp-faas-toolbelt` package, this function calls the current queue health API and passes that to a function to call and update the Conversation Context Service.
 
 7. After saving, deploy the function using the three-dot menu at the end of the function's row. Once deployed, invoke the function to test and ensure that it is working. If successful, the logs should read `Successfully updated Context Service`.
 8. Verify using Postman that the namespace and session have been updated in the Context Service. To test, provide the following details to your API client:
