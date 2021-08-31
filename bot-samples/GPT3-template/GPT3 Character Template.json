@@ -1,14 +1,14 @@
 {
-  "hash": "393446633",
+  "hash": "-1806092160",
   "bot": {
     "id": "4b594cd9-1f07-4553-adf7-348f780d5d35",
-    "name": "GPT3 Character Template (08-31-2021 04:26)",
+    "name": "GPT3 Character Template",
     "chatBotType": "CUSTOMER_FACING_BOT",
-    "description": "OmniBot",
+    "description": "Hooks up CB to GPT-3 and has a fun example where the user can talk to a fictional or historical character.",
     "status": "NEW",
     "getStartedButtonPayload": "hi",
     "creationTime": 1630441578151,
-    "modificationTime": 1630441578151,
+    "modificationTime": 1630451853123,
     "demo": false,
     "skipNLP": false,
     "language": "en-US",
@@ -71,8 +71,6 @@
       "transformResultsScript": "// grab the GPT3 response and set it to a variable\nvar getContextData = botContext.getBotVariable(\"api_GPT3\");\nvar getContextJsonResponse = JSON.parse(getContextData.jsonData);\nvar jsonResponse = getContextJsonResponse.api_GPT3;\nvar text = jsonResponse.choices[0].text;\nbotContext.setBotVariable(\"GPT3response\", text, true, false);\n\n// write the response and the convo up to this point to the context store\nvar prompt = botContext.getCurrentUserMessage();\nvar character = botContext.getContextDataForConversation(\"gpt3_char\", \"character\");\nvar chatHistory = botContext.getContextDataForConversation(\"gpt3_char\", \"chat_history\");\nvar newHistory = chatHistory + prompt + \" \" + character + \": \" + text + \" Human: \";\nbotContext.setContextDataForConversation(\"gpt3_char\", \"chat_history\", newHistory);\nbotContext.printDebugMessage(\"New history: \" + newHistory);\n\n",
       "responseDataVariable": "GPT3",
       "integrationType": "API",
-      "apiCredentialsId": "077f55474cb4205e396e09d0713f377d103871c6",
-      "securityProtocol": "ACCESS_TOKEN",
       "tangoContextEnabled": false
     }
   ],

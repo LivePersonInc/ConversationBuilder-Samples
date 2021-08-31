@@ -10,7 +10,7 @@ This bot queries the user for a historical figure or fictional character, and th
 # Getting Started Steps
 
 1. Import the "GPT3 Character Template" bot from this repo into your Conversational Cloud account
-2. In the bot's "GPT3" integration, add a Credential for GPT-3. This should be an "Access Token" type credential. The access token will be the one GPT-3 developer key provided by OpenAI, and the token type should be "Bearer"
+2. In the bot's "GPT3" integration, [add a Credential for GPT-3](https://developers.liveperson.com/bot-accounts-credentials.html). This should be an "Access Token" type credential. The access token will be the one GPT-3 developer key provided by OpenAI, and the token type should be "Bearer"
 3. Save the integration settings
 4. Test the bot in the Previewer by following the "01 Welcome" dialog flow
 
