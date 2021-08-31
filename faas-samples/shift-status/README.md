@@ -170,7 +170,7 @@ function lambda(input, callback) {
 
 This function does several things, but ultimately it logs a bot agent in, uses that bearer token to call the shift status API, passes that information to a function to format it, and then passes that data to a function to update the Context Session Store. Looking at this data in the Context Session Store using Postman, we see the following:
 
-<!--  POSTMAN RESPONSE IMAGE HERE -->
+![shift status postman response](shift-status-postman-response.png)
 
 As you can see, we now have a collection of keys in the global scope of our Context Session Store which map to the skill IDs currently on the account. Additionally, we have a timestamp so that you can see when these values have been last updated. With that in hand, we can now access those values from within Conversation Builder using the provided scripting functions.
 
