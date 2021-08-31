@@ -1,0 +1,695 @@
+{
+  "hash": "393446633",
+  "bot": {
+    "id": "4b594cd9-1f07-4553-adf7-348f780d5d35",
+    "name": "GPT3 Character Template (08-31-2021 04:26)",
+    "chatBotType": "CUSTOMER_FACING_BOT",
+    "description": "OmniBot",
+    "status": "NEW",
+    "getStartedButtonPayload": "hi",
+    "creationTime": 1630441578151,
+    "modificationTime": 1630441578151,
+    "demo": false,
+    "skipNLP": false,
+    "language": "en-US",
+    "botAttributes": {
+      "ENABLE_AGENT_ANNOTATIONS": "false",
+      "ENABLE_DEBUG": "true"
+    },
+    "sessionLength": 0,
+    "passThroughMode": false,
+    "transcriptDisabled": false,
+    "version": "2",
+    "publicBot": false,
+    "readOnly": false
+  },
+  "responder": [
+    {
+      "chatbotId": "4b594cd9-1f07-4553-adf7-348f780d5d35",
+      "id": "593a630f-1ca4-4fe5-85ca-6a8293fb09f6",
+      "name": "GPT3",
+      "webhook": "https://api.openai.com/v1/engines/davinci/completions",
+      "fileUrl": "{{file_url}}",
+      "method": "POST",
+      "headers": [
+        {
+          "key": "Accept",
+          "value": "application/json"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "defaultValues": [
+        {
+          "key": "title"
+        },
+        {
+          "key": "subTitle"
+        },
+        {
+          "key": "image"
+        },
+        {
+          "key": "itemUrl"
+        }
+      ],
+      "postBody": "{\n  \"prompt\": \"{$botContext.prompt}\", \n  \"max_tokens\": 64,\n  \"temperature\": 0.9,\n  \"stop\": \"Human\"\n}",
+      "results": {
+        "type": "TEXT",
+        "tile": {
+          "tileData": [
+            {
+              "buttons": [],
+              "quickReplyList": []
+            }
+          ]
+        }
+      },
+      "group": "Responders",
+      "transformResultsScript": "// grab the GPT3 response and set it to a variable\nvar getContextData = botContext.getBotVariable(\"api_GPT3\");\nvar getContextJsonResponse = JSON.parse(getContextData.jsonData);\nvar jsonResponse = getContextJsonResponse.api_GPT3;\nvar text = jsonResponse.choices[0].text;\nbotContext.setBotVariable(\"GPT3response\", text, true, false);\n\n// write the response and the convo up to this point to the context store\nvar prompt = botContext.getCurrentUserMessage();\nvar character = botContext.getContextDataForConversation(\"gpt3_char\", \"character\");\nvar chatHistory = botContext.getContextDataForConversation(\"gpt3_char\", \"chat_history\");\nvar newHistory = chatHistory + prompt + \" \" + character + \": \" + text + \" Human: \";\nbotContext.setContextDataForConversation(\"gpt3_char\", \"chat_history\", newHistory);\nbotContext.printDebugMessage(\"New history: \" + newHistory);\n\n",
+      "responseDataVariable": "GPT3",
+      "integrationType": "API",
+      "apiCredentialsId": "077f55474cb4205e396e09d0713f377d103871c6",
+      "securityProtocol": "ACCESS_TOKEN",
+      "tangoContextEnabled": false
+    }
+  ],
+  "requiredContext": [],
+  "conversationMessage": [
+    {
+      "id": "30cdd7caa716d09807c21c17e9a11f9bfed8c9e8",
+      "chatBotId": "4b594cd9-1f07-4553-adf7-348f780d5d35",
+      "userInputRequired": false,
+      "name": "dialog_starter_28",
+      "pattern": [
+        "hi",
+        "hello",
+        "howdy",
+        "hey",
+        "hai",
+        "hola",
+        "hiya",
+        "(hi|hello|hey) *",
+        "good (morning|afternoon|evening)*",
+        "(greetings)*",
+        "aloha",
+        "bonjour",
+        "yo",
+        "(gday|g'day)*",
+        "*(nice|good|pleased) to (meet|see)*",
+        "start",
+        "start over"
+      ],
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "DIALOG_STARTER",
+          "tile": {
+            "tileData": [
+              {
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "8f7ed0f9-4f0c-4b50-8c12-99a17fc44b3b",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "616fbec25a2b063f16051caca772125fb5ce8a1a",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "DIALOG_STARTER"
+    },
+    {
+      "id": "4a2969d7879f107034d3784395735d63afb70fd3",
+      "chatBotId": "4b594cd9-1f07-4553-adf7-348f780d5d35",
+      "userInputRequired": false,
+      "name": "button_40",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "BUTTON",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Use the button below to start. You can also type 'channel' to speak to a character, or 'start over' to reset the convo.",
+                "buttons": [
+                  {
+                    "name": "Channel Character",
+                    "type": "postback",
+                    "callback": "channel"
+                  }
+                ],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "8f7ed0f9-4f0c-4b50-8c12-99a17fc44b3b",
+      "status": "ACTIVE",
+      "required": true,
+      "prevMessageId": "616fbec25a2b063f16051caca772125fb5ce8a1a",
+      "responseMatches": [
+        {
+          "name": "channel",
+          "conditions": [
+            {
+              "matchType": "PATTERN",
+              "patternMatch": {
+                "patterns": [
+                  "channel"
+                ],
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "b475266e48d95e72e3a35e10bf2a49ebd4b70aec"
+          },
+          "contextDataVariables": []
+        },
+        {
+          "name": "start over",
+          "conditions": [
+            {
+              "matchType": "PATTERN",
+              "patternMatch": {
+                "patterns": [
+                  "start over"
+                ],
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "616fbec25a2b063f16051caca772125fb5ce8a1a"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "BUTTON",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "616fbec25a2b063f16051caca772125fb5ce8a1a",
+      "chatBotId": "4b594cd9-1f07-4553-adf7-348f780d5d35",
+      "userInputRequired": false,
+      "name": "text_29",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Hi! ",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "8f7ed0f9-4f0c-4b50-8c12-99a17fc44b3b",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "4a2969d7879f107034d3784395735d63afb70fd3",
+      "prevMessageId": "30cdd7caa716d09807c21c17e9a11f9bfed8c9e8",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "7d956eaf2bc767c4c08b0e572602a652f1bda4ac",
+      "chatBotId": "4b594cd9-1f07-4553-adf7-348f780d5d35",
+      "userInputRequired": false,
+      "name": "echo character name",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "OK - I will summon the spirit of {$botContext.character} now...",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "1aa255c4-ee2b-4702-bd33-c0eefdaa52f8",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "e763aac8029ade45faa68a0be0bef0df52b33d33",
+      "prevMessageId": "b475266e48d95e72e3a35e10bf2a49ebd4b70aec",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "887b6dfcde58e9c47291b2ed748d5f15f769a2d5",
+      "chatBotId": "4b594cd9-1f07-4553-adf7-348f780d5d35",
+      "userInputRequired": false,
+      "name": "set prompt and query GPT3",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "DYNAMIC",
+        "responderName": "GPT3",
+        "responderId": "593a630f-1ca4-4fe5-85ca-6a8293fb09f6"
+      },
+      "preProcessMessage": "var prompt = botContext.getCurrentUserMessage();\nvar character = botContext.getContextDataForConversation(\"gpt3_char\", \"character\");\nvar chatHistory = botContext.getContextDataForConversation(\"gpt3_char\", \"chat_history\");\nvar GPT3base = \"Human: Hi \" + character + \"! It is great to speak with you today. \" + character + \": Hello. I am happy to chat about my life. Human: Great. Are you ready to have a discussion? \" + character + \": Yes I am. Let's begin now. Human: \";\nvar GPT3prompt = GPT3base + chatHistory + prompt + \" \" + character + \": \";\nbotContext.printDebugMessage(\"GPT3 prompt: \" + GPT3prompt);\nbotContext.setBotVariable('prompt', GPT3prompt, true, false);",
+      "group": "1aa255c4-ee2b-4702-bd33-c0eefdaa52f8",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "ad49105e573ac1b587fef3ec9c2b674c92e85029",
+      "prevMessageId": "e763aac8029ade45faa68a0be0bef0df52b33d33",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "API_INTEGRATION",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "900cda6eabf87f8d612c65454d84e0b6cd8e6861",
+      "chatBotId": "4b594cd9-1f07-4553-adf7-348f780d5d35",
+      "userInputRequired": false,
+      "name": "start GPT3 convo",
+      "pattern": [
+        "contextchat",
+        "channel"
+      ],
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "DIALOG_STARTER",
+          "tile": {
+            "tileData": [
+              {
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "1aa255c4-ee2b-4702-bd33-c0eefdaa52f8",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "b475266e48d95e72e3a35e10bf2a49ebd4b70aec",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "DIALOG_STARTER"
+    },
+    {
+      "id": "ad49105e573ac1b587fef3ec9c2b674c92e85029",
+      "chatBotId": "4b594cd9-1f07-4553-adf7-348f780d5d35",
+      "userInputRequired": false,
+      "name": "chat with GPT3",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT_QUESTION",
+          "tile": {
+            "tileData": [
+              {
+                "text": "{$botContext.GPT3response}",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "1aa255c4-ee2b-4702-bd33-c0eefdaa52f8",
+      "status": "ACTIVE",
+      "required": true,
+      "prevMessageId": "887b6dfcde58e9c47291b2ed748d5f15f769a2d5",
+      "responseMatches": [
+        {
+          "name": "start over",
+          "conditions": [
+            {
+              "matchType": "PATTERN",
+              "patternMatch": {
+                "patterns": [
+                  "start over"
+                ],
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "616fbec25a2b063f16051caca772125fb5ce8a1a"
+          },
+          "contextDataVariables": []
+        },
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "887b6dfcde58e9c47291b2ed748d5f15f769a2d5"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT_QUESTION",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "b475266e48d95e72e3a35e10bf2a49ebd4b70aec",
+      "chatBotId": "4b594cd9-1f07-4553-adf7-348f780d5d35",
+      "userInputRequired": false,
+      "name": "collect character name",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT_QUESTION",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Using my omega-brain, you can talk to any fictional or historical person. Who do you want to chat with?",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "processUserResponse": "var text = botContext.getCurrentUserMessage();\nvar character = botContext.setBotVariable('character', text, true, false);\nvar chatHistory = botContext.setContextDataForConversation(\"gpt3_char\", \"chat_history\", \"\");\nvar success = botContext.setContextDataForConversation(\"gpt3_char\", \"character\", text);\nbotContext.printDebugMessage(\"set context data for conversation scope: \" + success);",
+      "group": "1aa255c4-ee2b-4702-bd33-c0eefdaa52f8",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "7d956eaf2bc767c4c08b0e572602a652f1bda4ac",
+      "prevMessageId": "900cda6eabf87f8d612c65454d84e0b6cd8e6861",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT_QUESTION",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "e763aac8029ade45faa68a0be0bef0df52b33d33",
+      "chatBotId": "4b594cd9-1f07-4553-adf7-348f780d5d35",
+      "userInputRequired": false,
+      "name": "collect user input",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT_QUESTION",
+          "tile": {
+            "tileData": [
+              {
+                "text": "{$botContext.character} is now being channeled. Chat away!",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "1aa255c4-ee2b-4702-bd33-c0eefdaa52f8",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "887b6dfcde58e9c47291b2ed748d5f15f769a2d5",
+      "prevMessageId": "7d956eaf2bc767c4c08b0e572602a652f1bda4ac",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT_QUESTION",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "ee9d1e6625c339ff33c4d79216129f17177b21f2",
+      "chatBotId": "4b594cd9-1f07-4553-adf7-348f780d5d35",
+      "userInputRequired": false,
+      "name": "fallback_starter",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Sorry - I didn't understand.",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "preProcessMessage": "var text = botContext.getCurrentUserMessage();\nvar character = botContext.setBotVariable('prompt', text, true, false);\nvar chatHistory = botContext.setContextDataForConversation(\"gpt3chat\", \"chatHistory\", \"\");\nvar success = botContext.setContextDataForConversation(\"gpt3chat\", \"prompt\", text);\nvar convId = botContext.getConversationId();\nbotContext.setBotVariable('session', convId, true, false);",
+      "group": "985a3aa4-272c-4366-b902-83e41823cdc3",
+      "status": "ACTIVE",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "4a2969d7879f107034d3784395735d63afb70fd3"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "fb05fb31afe36b73832b06e75413cc25a400522d",
+      "chatBotId": "4b594cd9-1f07-4553-adf7-348f780d5d35",
+      "userInputRequired": false,
+      "name": "README",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Hello! This template should help you get started with using GPT3 in Conversation Builder. You'll need to add your GPT3 key credential and then you should be good to go!",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "13d5755b-ca18-4583-8f05-59cad71c706d",
+      "status": "ACTIVE",
+      "required": true,
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    }
+  ],
+  "menus": [],
+  "groups": [
+    {
+      "chatBotId": "4b594cd9-1f07-4553-adf7-348f780d5d35",
+      "id": "13d5755b-ca18-4583-8f05-59cad71c706d",
+      "name": "00 - GPT3 Character Bot Readme",
+      "creationTime": "2021-08-31 16:26:18",
+      "modificationTime": "2021-08-31 16:26:18",
+      "dialogType": "DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false,
+      "dialogTemplateIds": [
+        "1c8e0027-d20a-482e-a372-2a3cf1f8f3d4"
+      ]
+    },
+    {
+      "chatBotId": "4b594cd9-1f07-4553-adf7-348f780d5d35",
+      "id": "1aa255c4-ee2b-4702-bd33-c0eefdaa52f8",
+      "name": "GPT3 (Channel Character)",
+      "creationTime": "2021-08-31 16:26:18",
+      "modificationTime": "2021-08-31 16:26:18",
+      "description": "talk to a character",
+      "dialogType": "DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    },
+    {
+      "chatBotId": "4b594cd9-1f07-4553-adf7-348f780d5d35",
+      "id": "8f7ed0f9-4f0c-4b50-8c12-99a17fc44b3b",
+      "name": "01 Welcome",
+      "creationTime": "2021-08-31 16:26:18",
+      "modificationTime": "2021-08-31 16:26:18",
+      "dialogType": "DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    },
+    {
+      "chatBotId": "4b594cd9-1f07-4553-adf7-348f780d5d35",
+      "id": "985a3aa4-272c-4366-b902-83e41823cdc3",
+      "name": "99 Fallback",
+      "creationTime": "2021-08-31 16:26:18",
+      "modificationTime": "2021-08-31 16:26:18",
+      "dialogType": "FALLBACK_DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    }
+  ],
+  "globalFunctions": {
+    "chatBotId": "4b594cd9-1f07-4553-adf7-348f780d5d35",
+    "methods": "\nfunction goNext(arg){botContext.setTriggerNextMessage(arg);} // navigate to an interaction\nfunction getUserMessage(){return botContext.getCurrentUserMessage();} // return what user just said\nfunction getIntent(){return botContext.getDialogStarterIntent();} // return the name of the matched dialog intent\nfunction setBotVar(arg,val){botContext.setBotVariable(arg, val, true, false);} // set a variable (session duration)\nfunction getBotVar(arg){return botContext.getBotVariable(arg);} // return a variable's value\nfunction getWebVar(arg){return botContext.getWebViewVariable(arg);} // return a web variable's value (set by a web view api)\nfunction getEnvVar(arg){return botContext.getEnvVariable(arg);} // return an environment variable's value\nfunction debugMsg(arg){botContext.printDebugMessage(arg);} // print a debug message in the bot logs\nfunction debugVar(arg){botContext.printDebugMessage(arg + ': ' + getBotVar(arg));} // print a variable name and its value to the bot logs\nfunction printVar(arg){botContext.sendMessage(arg + \": \" + getBotVar(arg));}  // print out a variable value in the conversation\nfunction logEvent(event_name) {botContext.logCustomEvent('', event_name, '');}  // log a custom event for a particular event name\nfunction logEventAdv(user_message, event_name, event_details) {botContext.logCustomEvent(user_message, event_name, event_details);}  // log a detailed custom event\n\nfunction sendMsg(arg){botContext.sendMessage(arg);} // sends single text message\nfunction sendMsgArr(arr){botContext.sendMessages(arr);} // takes an array and sends multiple text messages\n\nfunction setDelay(arg){botContext.setMessageDelay(arg);} // when called from PreProcess code will add delay to the interaction (in miliseconds)\nfunction goDefault(){goNext(\"platform.default\");} // generally used in Process User Response script as \"else\" to send user response to the NLU\n\n// SET A CONVERSATION LEVEL CONTEXT VARIABLE\nfunction setContextConv(key, value) {\n  var success = botContext.setContextDataForConversation(getBotVar('contextNameSpace'), key, value);\n  if (success) {\n    debugMsg(\"SETTING Context Data: Key: \"+key+ \"; Value: \"+value);\n  }else{\n    debugMsg(\"FAILED to Set Context Data: Key: \"+key+ \"; Value: \"+value);\n  }\n}\n// GET A CONVERSATION LEVEL CONTEXT VARIABLE\nfunction getContextConv(key) {\n  var success = botContext.getContextDataForConversation(getBotVar('contextNameSpace'), key);\n  if (success) {\n    debugMsg(\"GETTING Context Data: Key: \"+key+ \"; Value: \"+success);\n    return success;\n  }else{\n    debugMsg(\"FAILED to Get Context Data: Key: \"+key);\n  }\n}\n\n/* trail('<interaction name>'): \nsets a 'breadcrumb' variable containing name of current interaction; example: - trail('button_question123');\nIncrements an 'error counter' for each unmatched phrase on current interaction, and reset upon moving to next interaction.\nAdds each interaction to an array of previous interactions, which can then be used in the function 'previous();'\nNOTE: Trail() function must be added to every 'question' interaction\n*/\nfunction trail(val) { \n  var e = getBotVar('intArr'); \n  if (e == 'null' || e == null || e.length === 0) { \n    e = []; \n  } else { \n    e = e.split(',');\n  } \n  e.push(val); \n  setBotVar('intArr', e.toString()); \n  var count = Number(getBotVar('errorCounter')); \n  var breadcrumb = getBotVar('breadcrumb'); \n  if (breadcrumb != val) {\n    count = 0;\n  } \n  setBotVar('errorCounter', count); \n  setBotVar('breadcrumb', val); \n}\n/* previous \nUsed in conjunction with the 'trail()' function.\nGoes to previous interaction in the 'interactionArray' and pops the last interaction name.\n*/\nfunction previous(){\n  var e = getBotVar('intArr').split(\",\");\n  if(e.length === 1){\n    debugMsg('You are already back to the start');\n  }\n  e.pop();  \n  setBotVar('intArr', e);\n  goNext(e.pop());\n}\n\n\n// **************** INIT CONVERSATION **************************************************//\n\nfunction __initConversation() {\n  debugMsg('BOT STARTED: GLOBAL FUNCTIONS BOT');\n  // INITIALIZE CONSTANTS AND SAVE AS BOT VARIABLES\n  var initVars = {\n    defaultSkillId: \"\",\n    defaultSkillName: \"\",\n    firstInteraction: 'WELCOME',\n    transferMessage: 'Stand by!, transferring...',\n    contextNameSpace: 'testNamespace',\n    errorThreshold: 2,\n    errorCount: 0,\n    currentSkill: botContext.getLPEngagementAttribute(\"currentSkillId\"),\n    previousSkill: botContext.getLPEngagementAttribute(\"previousSkillId\"),\n    campaignId: botContext.getLPEngagementAttribute('campaignId'),\n    accountId: botContext.getLPAccountId(),\n    rtSessionId: botContext.getLPEngagementAttribute(\"rtSessionId\"),\n    sharkSessionId: botContext.getLPEngagementAttribute(\"sharkSessionId\"),\n    sharkVisitorId: botContext.getLPEngagementAttribute(\"sharkVisitorId\"),\n    bearerToken: botContext.getLPEngagementAttribute(\"BearerToken\"),\n    chatSessionKey: botContext.getLPEngagementAttribute(\"chatSessionKey\"),\n    agentSessionId: botContext.getLPEngagementAttribute(\"agentSessionId\"),\n    engid: botContext.getLPEngagementAttribute(\"engagementId\"),\n    conversationId: botContext.getConversationId(),\n    customerInfo: botContext.getLPCustomerInfo(),\n    userId: botContext.getUserPlatformId(),\n    channel: botContext.getUserChannel(),\n    customerId: botContext.getLPCustomerInfo().customerId,\n    botId: \"get from settings\"\n  };\n  for(var i in Object.keys(initVars)) {\n    setBotVar(Object.keys(initVars)[i], initVars[Object.keys(initVars)[i]]); // set each of the initVars as a variable\n    debugMsg(Object.keys(initVars)[i]+ \": \" +initVars[Object.keys(initVars)[i]]); // print a debug message for each of the variables set\n  }\n  botContext.registerContextNamespace(getBotVar('contextNameSpace'));\n}\n",
+    "creationTime": "2021-08-31 16:26:18",
+    "modificationTime": "2021-08-31 16:26:18"
+  },
+  "platforms": [
+    {
+      "id": "855b47f278171878654219b5132f1c0692d3c42f",
+      "chatbotId": "4b594cd9-1f07-4553-adf7-348f780d5d35",
+      "integrationType": "HTMLCLIENT",
+      "platform": "HTMLCLIENT",
+      "status": "NEW"
+    }
+  ],
+  "associatedDomains": [],
+  "dialogTemplates": [
+    {
+      "id": "1c8e0027-d20a-482e-a372-2a3cf1f8f3d4",
+      "parentDialogId": "13d5755b-ca18-4583-8f05-59cad71c706d",
+      "name": "Global Helper Functions",
+      "description": "Import all global helper functions for use in your bot",
+      "environmentVariables": [],
+      "globalFunctions": "\nfunction goNext(arg){botContext.setTriggerNextMessage(arg);} // navigate to an interaction\nfunction getUserMessage(){return botContext.getCurrentUserMessage();} // return what user just said\nfunction getIntent(){return botContext.getDialogStarterIntent();} // return the name of the matched dialog intent\nfunction setBotVar(arg,val){botContext.setBotVariable(arg, val, true, false);} // set a variable (session duration)\nfunction getBotVar(arg){return botContext.getBotVariable(arg);} // return a variable's value\nfunction getWebVar(arg){return botContext.getWebViewVariable(arg);} // return a web variable's value (set by a web view api)\nfunction getEnvVar(arg){return botContext.getEnvVariable(arg);} // return an environment variable's value\nfunction debugMsg(arg){botContext.printDebugMessage(arg);} // print a debug message in the bot logs\nfunction debugVar(arg){botContext.printDebugMessage(arg + ': ' + getBotVar(arg));} // print a variable name and its value to the bot logs\nfunction printVar(arg){botContext.sendMessage(arg + \": \" + getBotVar(arg));}  // print out a variable value in the conversation\nfunction logEvent(event_name) {botContext.logCustomEvent('', event_name, '');}  // log a custom event for a particular event name\nfunction logEventAdv(user_message, event_name, event_details) {botContext.logCustomEvent(user_message, event_name, event_details);}  // log a detailed custom event\n\nfunction sendMsg(arg){botContext.sendMessage(arg);} // sends single text message\nfunction sendMsgArr(arr){botContext.sendMessages(arr);} // takes an array and sends multiple text messages\n\nfunction setDelay(arg){botContext.setMessageDelay(arg);} // when called from PreProcess code will add delay to the interaction (in miliseconds)\nfunction goDefault(){goNext(\"platform.default\");} // generally used in Process User Response script as \"else\" to send user response to the NLU\n\n// SET A CONVERSATION LEVEL CONTEXT VARIABLE\nfunction setContextConv(key, value) {\n  var success = botContext.setContextDataForConversation(getBotVar('contextNameSpace'), key, value);\n  if (success) {\n    debugMsg(\"SETTING Context Data: Key: \"+key+ \"; Value: \"+value);\n  }else{\n    debugMsg(\"FAILED to Set Context Data: Key: \"+key+ \"; Value: \"+value);\n  }\n}\n// GET A CONVERSATION LEVEL CONTEXT VARIABLE\nfunction getContextConv(key) {\n  var success = botContext.getContextDataForConversation(getBotVar('contextNameSpace'), key);\n  if (success) {\n    debugMsg(\"GETTING Context Data: Key: \"+key+ \"; Value: \"+success);\n    return success;\n  }else{\n    debugMsg(\"FAILED to Get Context Data: Key: \"+key);\n  }\n}\n\n/* trail('<interaction name>'): \nsets a 'breacrumb' variable containing name of current interaction; example: - trail('button_question123');\nIncrements an 'error counter' for each unmatched phrase on current interaction, and reset upon moving to next interaction.\nAdds each interaction to an array of previous interactions, which can then be used in the function 'previous();'\nNOTE: Trail() function must be added to every 'question' interaction\n*/\n//trail = function(val) { var e = getBotVar('intArr'); if (e == 'null' || e == null) { e = []; } else { e = e.split(',');} e.push(val); setBotVar('intArr', e.toString()); txt(e.toString()); var count = Number(getBotVar('errorCounter')); var breadcrumb = getBotVar('breadcrumb'); if (breadcrumb != val) {count = 0;} setBotVar('errorCounter', count); setBotVar('breadcrumb', val); };\nfunction trail(val) { \n  var e = getBotVar('intArr'); \n  if (e == 'null' || e == null || e.length === 0) { \n    e = []; \n  } else { \n    e = e.split(',');\n  } \n  e.push(val); \n  setBotVar('intArr', e.toString()); \n  var count = Number(getBotVar('errorCounter')); \n  var breadcrumb = getBotVar('breadcrumb'); \n  if (breadcrumb != val) {\n    count = 0;\n  } \n  setBotVar('errorCounter', count); \n  setBotVar('breadcrumb', val); \n}\n/* previous \nUsed in conjunction with the 'trail()' function.\nGoes to previous interaction in the 'interactionArray' and pops the last interaction name.\n*/\nfunction previous(){\n  var e = getBotVar('intArr').split(\",\");\n  if(e.length === 1){\n    debugMsg('You are already back to the start');\n  }\n  e.pop();  \n  setBotVar('intArr', e);\n  goNext(e.pop());\n}\n\n\n// **************** INIT CONVERSATION **************************************************//\n\nfunction __initConversation() {\n  debugMsg('BOT STARTED: GLOBAL FUNCTIONS BOT');\n  // INITIALIZE CONSTANTS AND SAVE AS BOT VARIABLES\n  var initVars = {\n    defaultSkillId: \"\",\n    defaultSkillName: \"\",\n    firstInteraction: 'WELCOME',\n    transferMessage: 'Stand by!, transferring...',\n    contextNameSpace: 'testNamespace',\n    errorThreshold: 2,\n    errorCount: 0,\n    currentSkill: botContext.getLPEngagementAttribute(\"currentSkillId\"),\n    previousSkill: botContext.getLPEngagementAttribute(\"previousSkillId\"),\n    campaignId: botContext.getLPEngagementAttribute('campaignId'),\n    accountId: botContext.getLPAccountId(),\n    rtSessionId: botContext.getLPEngagementAttribute(\"rtSessionId\"),\n    sharkSessionId: botContext.getLPEngagementAttribute(\"sharkSessionId\"),\n    sharkVisitorId: botContext.getLPEngagementAttribute(\"sharkVisitorId\"),\n    bearerToken: botContext.getLPEngagementAttribute(\"BearerToken\"),\n    chatSessionKey: botContext.getLPEngagementAttribute(\"chatSessionKey\"),\n    agentSessionId: botContext.getLPEngagementAttribute(\"agentSessionId\"),\n    engid: botContext.getLPEngagementAttribute(\"engagementId\"),\n    conversationId: botContext.getConversationId(),\n    customerInfo: botContext.getLPCustomerInfo(),\n    userId: botContext.getUserPlatformId(),\n    channel: botContext.getUserChannel(),\n    customerId: botContext.getLPCustomerInfo().customerId,\n    botId: \"get from settings\"\n  };\n  for(var i in Object.keys(initVars)) {\n    setBotVar(Object.keys(initVars)[i], initVars[Object.keys(initVars)[i]]); // set each of the initVars as a variable\n    debugMsg(Object.keys(initVars)[i]+ \": \" +initVars[Object.keys(initVars)[i]]); // print a debug message for each of the variables set\n  }\n  botContext.registerContextNamespace(getBotVar('contextNameSpace'));\n}\n",
+      "publicTemplate": true,
+      "organizationId": "9bfc4167-8010-4521-8ab9-1f2d5fdc48e9",
+      "status": "ACTIVE",
+      "type": "BOT",
+      "botId": "4b594cd9-1f07-4553-adf7-348f780d5d35",
+      "createdAt": 1630441578742,
+      "updatedAt": 1630441578742
+    }
+  ]
+}
