@@ -57,13 +57,13 @@ This solution utilises a 'Bot' Type Conversational Cloud user, which logins to t
 1. Complete the *Coding Details* section with the following:
    * **Event**: No Event
    * **Template**: Greeting Template
-   * **Access to external domains?**: Yes: On the following screen, add `*.context.liveperson.net` to ensure the context service URL is accessible from the function. Alternatively, the domain can be whitelisted from the FaaS settings page.
+   * **Access to external domains?**: No
 
 	Click *Continue*
 
 2. Complete the *Function Description* section with the following:
-   * **Function Name**: currentQueueHealth
-   * **Description**: Retrieve current queue info on scheduled intervals and update a namespace in Conversation Context Service.
+   * **Function Name**: faas-application-login
+   * **Description**: Performs application login for authentication token
 
 	Click *Create Function*
 
