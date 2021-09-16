@@ -1,8 +1,8 @@
 # QR Codes, SMS, & Proactive Messaging
 In this guide, we'll cover an end-to-end workflow using a chatbot on SMS for marketing purposes. The workflow involves:
 1. A consumer scanning a QR code to begin an SMS conversation with the brand's bot
-2. A bot integration adding the user's phone number to a Google Sheet
-3. The brand using proactive messaging at a later date to re-engage their consumers through SMS
+2. A bot integration adding the user's phone number to the [Context Service](https://developers.liveperson.com/conversation-orchestrator-conversation-context-service-overview.html)
+3. The brand running a script to create a Proactive Messaging campaign, sending SMS messages to all the collected numbers
 
 As an example, we'll build this out for a venue which wants to attract repeat customers for an underground music night.
 ## Prerequisites
@@ -10,11 +10,10 @@ A basic familiarity with LivePerson Bots is assumed. However, relevant documenta
 
 - [Create and deploy a bot](https://developers.liveperson.com/tutorials-guides-getting-started-with-bot-building-overview.html) on SMS using the [default Twilio connector](https://knowledge.liveperson.com/getting-started-quick-start-guides-twilio-sms-quick-start.html)
 - [Create an SMS QR code](https://www.the-qrcode-generator.com/) pointing toward the Twilio number connected to the Conversational Cloud
-- Create a Google Sheet and a Google Developer account to [integrate into Conversation Builder](https://developers.liveperson.com/bot-accounts-credentials.html)
 - Ensure you have access to [Proactive Messaging](https://knowledge.liveperson.com/messaging-channels-proactive-messaging-proactive-messaging-user-guide.html)
 
 ## Workflow
-Once we've got a [basic bot deployed to SMS](https://developers.liveperson.com/conversation-builder-testing-deployment-deploying-to-conversational-cloud.html), we can use the free tool linked above to generate the QR code, and we'll use [our Twilio SMS number](https://knowledge.liveperson.com/getting-started-quick-start-guides-twilio-sms-quick-start.html) which is connected to the Conversational Cloud as the target.
+Once we've got our [bot deployed to SMS](https://developers.liveperson.com/conversation-builder-testing-deployment-deploying-to-conversational-cloud.html), we can use the free tool linked above to generate the QR code, and we'll use [our Twilio SMS number](https://knowledge.liveperson.com/getting-started-quick-start-guides-twilio-sms-quick-start.html) which is connected to the Conversational Cloud as the target.
 
 ![qr-code](./readme-images/qr-code.png?raw=true)
 
@@ -31,37 +30,22 @@ The consumer just has to hit send.
 
 ![sms1](./readme-images/sms1.png?raw=true)
 
-Now, as each new consumer comes in, we want to store their phone numbers so that we can proactively reach out to them at a later date.
+Now, as each new consumer comes in, we want to save their phone number in the Context Service so that we can proactively reach out to them at a later date.
 
-First, in a Conversation Builder interaction, we'll grab the consumer's phone number and write it to a bot variable:
+In the Conversation Builder interaction which will be triggered by the SMS, we'll put the following in either the pre or post process code:
 
-```
+```js
+// grab the consumer's phone number
 var customerInfo = botContext.getLPCustomerInfo();
 var phoneNumber = customerInfo.imei;
-botContext.setBotVariable('number', phoneNumber, true, false);
+// write the consumer's phone number to the context service as the key, with 'true' as the value
+var success = botContext.setGlobalContextData("phoneNumbers", phoneNumber, true);
+botContext.printDebugMessage("add the phone number to our text list: " + success);
 ```
 
-For long-term storage, we could use LivePerson's Conversation Context Service, an external database, a CRM, etc. In this case, we'll use a Google Sheet so we put have the data in exactly the right format to upload to the LivePerson Proactive Messaging tool.
+When there's an upcoming event and the brand wants to send out the Proactive Messages, we can use a Node.js script which leverages the Context Service and the Proactive Messaging API to create the campaign. In this script you'll define the language included in the message and what skill you want to answer the consumer's response, among other details.
 
-Our integration with Google Sheets will send a POST request to `https://sheets.googleapis.com/v4/spreadsheets/{$botContext.sheetId}/values/A1:append` with the consumer's phone number.
-
-That `sheetId` bot variable will be the unique id for the spreadsheet, available in the URL of the sheet:
-![sheet](./readme-images/sheet.png?raw=true)
-
-The post body for the integration will send over the phone number we collected:
-```
-{
-   "values": [
-     [
-       "{$botContext.number}"
-     ]
-   ]
-  }
-  ```
-
-Later, when another show is coming up, the brand can export this spreadsheet as a CSV and upload it to LivePerson's [Proactive Messaging Tool](https://knowledge.liveperson.com/messaging-channels-proactive-messaging-proactive-messaging-user-guide.html)
-
-![proactive1](./readme-images/proactive1.png?raw=true)
+Use the 'proactive.js' file contained in this repository as a template. The steps to run it are included in that file.
 
 The defined message will be sent to all of the collected numbers and the consumer's response will be handled by the defined skill/bot.
 
