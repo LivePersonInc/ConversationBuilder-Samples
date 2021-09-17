@@ -67,7 +67,7 @@ const twilioNumber = "";
         let payload = {
             "campaignName": "secret_show_campaign",
             "skill": skill, //
-            "templateId": "1234567890", // use this tempalteId for SMS campaigns
+            "templateId": "1234567890", // use this templateId for SMS campaigns
             "outboundNumber": twilioNumber,
             "consent": true,
             "consumers": formattedConsumers
