@@ -2,24 +2,37 @@ function lambda(input, callback) {
   const { Toolbelt } = require("lp-faas-toolbelt");
   const httpClient = Toolbelt.HTTPClient(); // For API Docs look @ https://www.npmjs.com/package/request-promise
   const secretClient = Toolbelt.SecretClient();
-  const tokenSecretName = 'FAAS-Standard';
-  // 'FAAS-Standard'
+  const tokenSecretName = 'FAAS-Runner';
+  const { conversationId, agentLoginName, leUserId } = input.payload;
 
-  input.payload.regionCode = "sy";
-  const executorAgentId = 1403014670; // this is the ID from the user calling the function, i.e. - the FAAS Login agent (FAAS-Standard)
-  // input.payload.conversationId = "c64456b9-5d4b-4563-8aa8-7011d8d332ca";
-  // input.payload.agentLoginName = "testBot";
-  // input.payload.leUserId = 1402155370;
-  // input.payload.bearer = "af4c2626cb0bb9a2289690b1ec779ce5c8c0de47fe6a2889d5c04d5415fc22fd";
+  const lpDomain = async () => {
+    const options = {
+      method: "get",
+      url: `https://api.liveperson.net/api/account/${process.env.BRAND_ID}/service/baseURI?version=1.0`,
+      headers: { "Content-Type": "application/json" },
+    };
+    try {
+      const response = await httpClient(options);
+      const data = JSON.parse(response);
+      let doms = {};
+      for (const i in data.baseURIs) {
+        doms[data.baseURIs[i].service] = data.baseURIs[i].baseURI
+      }
+      return doms;
+    } catch (err) {
+      console.error(`lpDomain() -> ${JSON.stringify(err)}`);
+      return err;
+    }
+  };
 
-
-  const { regionCode, conversationId, agentLoginName, leUserId } = input.payload;
-
-
-  const getMsgHist = async (bearer) => {
+  const getMsgHist = async (bearer, DOMAIN) => {
+    if (!bearer || !DOMAIN) {
+      console.error(`error undefined prop: bearer ${!!bearer} | domain ${!!DOMAIN}`)
+      return;
+    }
     const options = {
       method: "POST",
-      url: `https://${regionCode}.msghist.liveperson.net/messaging_history/api/account/${process.env.BRAND_ID}/conversations/conversation/search`,
+      url: `https://${DOMAIN}/messaging_history/api/account/${process.env.BRAND_ID}/conversations/conversation/search`,
       body: JSON.stringify({ conversationId, "contentToRetrieve": ["info", "agentParticipantsActive", "consumerParticipants"] }),
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + bearer },
     }
@@ -34,28 +47,19 @@ function lambda(input, callback) {
     }
   };
 
-  const botJoin = async (agentLoginName, leUserId, executorId, type, bearer) => {
-
-    if (!conversationId || !bearer || !agentLoginName || !leUserId || !type) {
-      console.error('missing properties')
-      return;
-    }
+  const botJoin = async (config) => {
+    const { agentLoginName, leUserId, executorId, type, bearer, DOMAIN } = config;
+    // for (const b in Object.keys(config)) { if (!Object.values(config)[b]) console.error(`missing properties ${Object.keys(config)[b]}`); return; }
     const options = {
-      url: `https://${regionCode}.intentid.liveperson.net/v1/userjoin/${type}/${conversationId}`,
+      url: `https://${DOMAIN}/v1/userjoin/${type}/${conversationId}`,
       method: "POST",
       headers: {
-        'Host': 'sy.intentid.liveperson.net',
         'Accept': 'application/json, text/plain, */*',
-        'Accept-Language': 'en-US,en;q=0.5',
-        'Accept-Encoding': 'gzip, deflate, br',
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${bearer}`,
         'user-id': `${executorId}`,
         'account-id': process.env.BRAND_ID,
-        'Origin': 'https://z3.le.liveperson.net',
-        'Connection': 'keep-alive',
-        'Pragma': 'no-cache',
-        'Cache-Control': 'no-cache'
+        'Connection': 'keep-alive'
       },
       body: JSON.stringify({ "conversationId": conversationId, "leUserId": leUserId, "brandId": process.env.BRAND_ID, "userName": agentLoginName }),
       simple: false,
@@ -65,39 +69,40 @@ function lambda(input, callback) {
     console.info(JSON.stringify(options))
     try {
       const response = await httpClient(options)
-      console.info('response')
-      console.info(response)
-      return response;
+      return { status: 'success' };
     } catch (err) {
-      console.info('error')
-      console.error(JSON.stringify(err))
-      return;
+      return { status: 'fail', error: JSON.stringify(err) };
     }
   }
 
   const main = async (input, callback) => {
+    // get LP Domains
+    const LP_DOMAINS = await lpDomain();
+    // get auth token from secret storage
     const token = await secretClient.readSecret(tokenSecretName);
-    if (!token) { return; }
-    const bearer = token.value.bearer;
-    const metadata = await getMsgHist(bearer);
-    if (!metadata) return;
+    if (!token) { return { status: 'fail', error: 'token missing' }; }
+    const { bearer, config } = token.value;
+    // get active agent participants from messaging interactions API and set 'join' or 'remove'
+    const metadata = await getMsgHist(bearer, LP_DOMAINS.msgHist);
+    if (!metadata) return { status: 'fail', error: 'msgHist data missing' };
     const record = metadata;
-    const { latestAgentId } = record.info;
-    // const executorAgentId = 1403014670;
     let type = 'join';
     if (record.hasOwnProperty('agentParticipantsActive')) {
       const bot = record.agentParticipantsActive.find(x => x.agentLoginName === agentLoginName);
       if (bot) type = 'remove';
     }
-    // const botJoin = async (agentLoginName, leUserId, yourId, type, bearer)
-    // console.info(JSON.stringify({
-    //   agentLoginName, leUserId, latestAgentId, type, bearer
-    // }))
-    // const botJoin = async (agentLoginName, leUserId, yourId, type, bearer) => {    
-    if (!agentLoginName || !leUserId || !executorAgentId || !type || !bearer) return
-    const joinState = await botJoin(agentLoginName, leUserId, executorAgentId, type, bearer);
-    console.info(`joinState: ${JSON.stringify(joinState)}`)
-    return joinState;
+
+    // let's tango!
+    const tango = await botJoin({
+      agentLoginName,
+      leUserId,
+      executorId: config.userId,
+      type,
+      bearer,
+      DOMAIN: LP_DOMAINS.coreAIIntent
+    });
+    return { result: tango };
   }
+
   callback(null, main());
 }
