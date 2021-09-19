@@ -58,13 +58,6 @@ This solution utilises a 'Bot' Type Conversational Cloud user, which logins to t
 8. Save and exit settings
 
 ## Create the function
-<<<<<<< HEAD
-=======
-1. Complete the *Coding Details* section with the following:
-   * **Event**: No Event
-   * **Template**: Greeting Template
-   * **Access to external domains?**: No
->>>>>>> e886606605f1e5b413de33d064e3518c38cc847a
 
 1. Complete the _Coding Details_ section with the following:
 
@@ -74,16 +67,9 @@ This solution utilises a 'Bot' Type Conversational Cloud user, which logins to t
 
    Click _Continue_
 
-2. Complete the _Function Description_ section with the following:
-
-<<<<<<< HEAD
-   - **Function Name**: currentQueueHealth
-   - **Description**: Retrieve current queue info on scheduled intervals and update a namespace in Conversation Context Service.
-=======
 2. Complete the *Function Description* section with the following:
    * **Function Name**: faas-application-login
    * **Description**: Performs application login for authentication token
->>>>>>> e886606605f1e5b413de33d064e3518c38cc847a
 
    Click _Create Function_
 
@@ -210,11 +196,9 @@ Check the following to ensure everything is configured correctly
 - It is enabled
 
 3. The FAAS Secret
-<<<<<<< HEAD
 
 - Unfortunately for troubleshooting, the FAAS Secret is encrypted so we cannot open it and confirm if it was setup correctly.
 - It may be worth however, deleting the key and following the steps above (under FAAS settings) again and double check that "JSON" type was selected when creating the secret
 =======
   - Unfortunately for troubleshooting, the FAAS Secret is encrypted so we cannot open it and confirm if it was setup correctly.
   - It may be worth however, deleting the key and following the steps above (under FAAS settings) again and double check that "JSON" type was selected when creating the secret
->>>>>>> e886606605f1e5b413de33d064e3518c38cc847a
