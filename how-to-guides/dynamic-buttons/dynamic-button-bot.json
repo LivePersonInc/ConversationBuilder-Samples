@@ -1,0 +1,480 @@
+{
+  "hash": "-1479279225",
+  "bot": {
+    "id": "11bf4142-98f0-46a6-b56e-7db1b84b4abf",
+    "name": "dynamic-button-demo",
+    "chatBotType": "CUSTOMER_FACING_BOT",
+    "description": "This bot contains a demonstration of how to construct button question interactions with a dynamic number of buttons based on an API response.",
+    "status": "NEW",
+    "getStartedButtonPayload": "hi",
+    "creationTime": 1632170475822,
+    "modificationTime": 1632170475822,
+    "demo": false,
+    "skipNLP": false,
+    "language": "en-US",
+    "botAttributes": {
+      "ENABLE_DEBUG": "true"
+    },
+    "sessionLength": 0,
+    "passThroughMode": false,
+    "transcriptDisabled": false,
+    "version": "2",
+    "publicBot": false,
+    "readOnly": false
+  },
+  "responder": [
+    {
+      "chatbotId": "11bf4142-98f0-46a6-b56e-7db1b84b4abf",
+      "id": "806bb499-5451-400b-9966-f1a9ec5bdeb0",
+      "name": "Buttons",
+      "webhook": "https://5fc54a0936bc790016344a09.mockapi.io/dynamic-button-demo/{$botContext.buttonCount}",
+      "method": "GET",
+      "defaultValues": [
+        {
+          "key": "title"
+        },
+        {
+          "key": "subTitle"
+        },
+        {
+          "key": "image"
+        },
+        {
+          "key": "itemUrl"
+        }
+      ],
+      "results": {
+        "type": "TEXT",
+        "tile": {
+          "tileData": [
+            {
+              "buttons": [],
+              "quickReplyList": []
+            }
+          ]
+        }
+      },
+      "group": "Responders",
+      "transformResultsScript": "var getResponseData = botContext.getBotVariable('api_Buttons');\nvar jsonData = JSON.parse(getResponseData.jsonData);\nbotContext.setBotVariable('allButtons', JSON.stringify(jsonData.api_Buttons.buttons), true, false);",
+      "responseDataVariable": "Buttons",
+      "integrationType": "API",
+      "tangoContextEnabled": false
+    }
+  ],
+  "requiredContext": [],
+  "conversationMessage": [
+    {
+      "id": "6e36e34a021dfd8f3f7d87b2e4eec9596b48eff7",
+      "chatBotId": "11bf4142-98f0-46a6-b56e-7db1b84b4abf",
+      "userInputRequired": true,
+      "name": "dynamic_button_display",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "UNIVERSAL",
+          "tile": {
+            "tileData": [
+              {
+                "buttons": [],
+                "quickReplyList": [],
+                "universalWidget": {
+                  "leMessageJson": "{$botContext.jsonTemplate}"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "preProcessMessage": "var buttonCount = botContext.getBotVariable('buttonCount');\nvar allButtons = JSON.parse(botContext.getBotVariable('allButtons'));\nvar cardElements = [\n  {\n    \"type\": \"text\",\n    \"text\": \"You've selected \" + buttonCount + \" button(s)\",\n    \"tooltip\": buttonCount + \" button(s)\"\n  }\n];\nfor (var i = 0; i < allButtons.length; i++) {\n  var element = {\n    \"type\": \"button\",\n    \"title\": allButtons[i].label,\n    \"click\": {\n      \"actions\": [\n        {\n          \"type\": \"publishText\",\n          \"text\": allButtons[i].payload\n        }\n      ]\n    },\n    \"tooltip\": allButtons[i].label\n  };\n  cardElements.push(element);\n}\n\nvar json = {\n  \"type\": \"vertical\",\n  \"elements\": cardElements\n};\n\nbotContext.setBotVariable('jsonTemplate', JSON.stringify(json), true, false);",
+      "group": "d430338e-0456-4edb-8cf7-dce0b9b52378",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "a3757877ad508ad9b1e76ec8b517e6e341affb30",
+      "prevMessageId": "b272abd3ea439db832d807dac4d1e5a040295873",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "UNIVERSAL",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      },
+      "interactionDelay": "500"
+    },
+    {
+      "id": "919221d2f537a069b88cdbddea03da7baa81f896",
+      "chatBotId": "11bf4142-98f0-46a6-b56e-7db1b84b4abf",
+      "userInputRequired": false,
+      "name": "dialog_starter",
+      "pattern": [
+        "hi",
+        "hello",
+        "howdy",
+        "(hi|hello|hey)*"
+      ],
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Hello!!",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "preProcessMessage": "var d = new Date(); \nif (botContext.getBotVariable('lastVisited') != null) { \n    botContext.setTriggerNextMessage('Welcome Back');\n} else { \n    botContext.setBotVariable('lastVisited',d,false,true); \n}",
+      "group": "d430338e-0456-4edb-8cf7-dce0b9b52378",
+      "status": "ACTIVE",
+      "nextMessageId": "a217b7fb85f2bbeabd01fbf4bd44df3ad082abb5",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "DIALOG_STARTER"
+    },
+    {
+      "id": "a217b7fb85f2bbeabd01fbf4bd44df3ad082abb5",
+      "chatBotId": "11bf4142-98f0-46a6-b56e-7db1b84b4abf",
+      "userInputRequired": false,
+      "name": "welcome_message",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Hi there! This bot demonstrates how to use the Universal Tile to display a dynamic number of buttons from an API response.",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "d430338e-0456-4edb-8cf7-dce0b9b52378",
+      "status": "ACTIVE",
+      "nextMessageId": "d01745ccc6e95ee4b89923308a3e6da4045c6a53",
+      "prevMessageId": "919221d2f537a069b88cdbddea03da7baa81f896",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT",
+      "interactionDelay": "500"
+    },
+    {
+      "id": "a3757877ad508ad9b1e76ec8b517e6e341affb30",
+      "chatBotId": "11bf4142-98f0-46a6-b56e-7db1b84b4abf",
+      "userInputRequired": false,
+      "name": "retry",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "QUICK_REPLY",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Would you like to choose a different number of buttons?",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "quickReplies": [
+        {
+          "type": "text",
+          "title": "Yes",
+          "payload": "Yes"
+        },
+        {
+          "type": "text",
+          "title": "No",
+          "payload": "No"
+        }
+      ],
+      "group": "d430338e-0456-4edb-8cf7-dce0b9b52378",
+      "status": "ACTIVE",
+      "required": true,
+      "prevMessageId": "6e36e34a021dfd8f3f7d87b2e4eec9596b48eff7",
+      "responseMatches": [
+        {
+          "name": "Yes",
+          "conditions": [
+            {
+              "matchType": "PATTERN",
+              "patternMatch": {
+                "patterns": [
+                  "yes"
+                ],
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "d01745ccc6e95ee4b89923308a3e6da4045c6a53"
+          },
+          "contextDataVariables": []
+        },
+        {
+          "name": "No",
+          "conditions": [
+            {
+              "matchType": "PATTERN",
+              "patternMatch": {
+                "patterns": [
+                  "No"
+                ],
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "close_conversation"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "QUICK_REPLY",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "afd2274b7bf261d63c18d41fec184b4dee144818",
+      "chatBotId": "11bf4142-98f0-46a6-b56e-7db1b84b4abf",
+      "userInputRequired": false,
+      "name": "fallback_starter",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Sorry, I am not able to understand.",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "8c655c52-bdb5-4ea2-ba74-a91cb3c56dec",
+      "status": "ACTIVE",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "b272abd3ea439db832d807dac4d1e5a040295873",
+      "chatBotId": "11bf4142-98f0-46a6-b56e-7db1b84b4abf",
+      "userInputRequired": false,
+      "name": "fetch_buttons",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "DYNAMIC",
+        "responderName": "Buttons",
+        "responderId": "806bb499-5451-400b-9966-f1a9ec5bdeb0"
+      },
+      "group": "d430338e-0456-4edb-8cf7-dce0b9b52378",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "6e36e34a021dfd8f3f7d87b2e4eec9596b48eff7",
+      "prevMessageId": "d01745ccc6e95ee4b89923308a3e6da4045c6a53",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "API_INTEGRATION",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      },
+      "interactionDelay": "500"
+    },
+    {
+      "id": "d01745ccc6e95ee4b89923308a3e6da4045c6a53",
+      "chatBotId": "11bf4142-98f0-46a6-b56e-7db1b84b4abf",
+      "userInputRequired": false,
+      "name": "how_many_buttons?",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT_QUESTION",
+          "tile": {
+            "tileData": [
+              {
+                "text": "How many buttons would you like to display? (1-4)",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "d430338e-0456-4edb-8cf7-dce0b9b52378",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "b272abd3ea439db832d807dac4d1e5a040295873",
+      "prevMessageId": "a217b7fb85f2bbeabd01fbf4bd44df3ad082abb5",
+      "responseMatches": [
+        {
+          "name": "button-count",
+          "conditions": [
+            {
+              "matchType": "PATTERN",
+              "patternMatch": {
+                "patterns": [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": [
+            {
+              "name": "buttonCount",
+              "value": "{$userMessage}",
+              "scope": "SESSION"
+            }
+          ]
+        },
+        {
+          "name": "No match",
+          "conditions": [
+            {
+              "matchType": "NO_MATCH",
+              "noMatch": {
+                "fallbackMessage": "Please select between 1 and 4 buttons."
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "d01745ccc6e95ee4b89923308a3e6da4045c6a53"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT_QUESTION",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      },
+      "interactionDelay": "500"
+    }
+  ],
+  "menus": [],
+  "groups": [
+    {
+      "chatBotId": "11bf4142-98f0-46a6-b56e-7db1b84b4abf",
+      "id": "8c655c52-bdb5-4ea2-ba74-a91cb3c56dec",
+      "name": "2 Fallback",
+      "creationTime": "2021-09-20 16:41:15",
+      "modificationTime": "2021-09-20 16:41:15",
+      "dialogType": "FALLBACK_DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    },
+    {
+      "chatBotId": "11bf4142-98f0-46a6-b56e-7db1b84b4abf",
+      "id": "d430338e-0456-4edb-8cf7-dce0b9b52378",
+      "name": "1 Welcome",
+      "creationTime": "2021-09-20 16:41:15",
+      "modificationTime": "2021-09-20 16:41:15",
+      "dialogType": "DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    }
+  ],
+  "platforms": [
+    {
+      "id": "16498f94fd4c197fb680dfaac9ec5e83c4c80551",
+      "chatbotId": "11bf4142-98f0-46a6-b56e-7db1b84b4abf",
+      "integrationType": "HTMLCLIENT",
+      "platform": "HTMLCLIENT",
+      "status": "NEW"
+    }
+  ],
+  "associatedDomains": [],
+  "dialogTemplates": []
+}
