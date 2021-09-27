@@ -68,7 +68,4 @@ The `ctype` value will be 'Direct Message', 'Story Mention', or 'Story Reply', s
 2. The consumer @mentions the brand in their story
 3. The bot receives the message, validates that it's the consumer's first time and that they're within the first 50 people to @mention, and then serves them the promo code
 
-
-
-
-
+https://user-images.githubusercontent.com/25466659/134989787-dac11c1e-c3a2-441c-b9aa-6610056d32b5.mp4
