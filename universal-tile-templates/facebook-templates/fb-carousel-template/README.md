@@ -2,7 +2,7 @@
 
 This template renders a carousel of structured card messages that include a text title, subtitle, image and three buttons that link to distinct web pages. More information on Facebook Carousel Templates can be found in our [developer documentation](https://developers.liveperson.com/facebook-messenger-templates-carousel-template.html).
 
-> **Note**: To display this interaction, all URL domains for links and images must be whitelisted on the Facebook platform. Please see [our documentation](https://developers.liveperson.com/facebook-messenger-templates-introduction.html#facebook-messenger-setup) for guidance on how to whitelist domains in Facebook.
+> **Note**: To display this interaction, all URL domains for button links must be whitelisted on the Facebook platform. Please see [our documentation](https://developers.liveperson.com/facebook-messenger-templates-introduction.html#facebook-messenger-setup) for guidance on how to whitelist domains in Facebook.
 
 ![fb-carousel-template-1](fb_Carousel_Template1.jpg)    ![fb-carousel-template-2](fb_Carousel_Template2.jpg)
 

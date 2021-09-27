@@ -6,9 +6,9 @@ For more information on creating Facebook templates, please see our [developer d
 
 Facebook interactions are limited in capability compared to the full features that are available on other channels, such as web messaging. Some of these limitations include:
 
-* Facebook generic and button templates are limited to displaying to 3 buttons. Additional buttons included in the template will be ignored.
+* Facebook generic and button templates are limited to displaying a maximum of 3 buttons. Including additional buttons will result in an error in displaying the interaction to users.
 * All templates require at least 2 elements in order to render (ex: a single "text" element will fail to appear). Images and buttons built with the Universal Interaction require a title element. If you want to display a single text interaction, use the default Conversation Builder text interaction.
 * "Click" actions are restricted to buttons (in web messaging, click actions can also be added to images). Additionally, multi-action buttons are not compatible with Facebook buttons.
-* In additional to whitelisting image URLs on the LivePerson side, both image and link URLs need to be whitelisted in Facebook's settings. See **[Facebook Messenger setup](https://developers.liveperson.com/facebook-messenger-templates-introduction.html#facebook-messenger-setup)** for guidance on authorizing these URLs on Facebook.
+* To display interactions which include button links, all linked URL domains must be whitelisted on the Facebook platform. Please see [our documentation](https://developers.liveperson.com/facebook-messenger-templates-introduction.html#facebook-messenger-setup) for guidance on how to whitelist domains in Facebook.
 
 For more information on rich content limitations on Facebook, see our [developer documentation](https://developers.liveperson.com/facebook-messenger-templates-limitations.html).
