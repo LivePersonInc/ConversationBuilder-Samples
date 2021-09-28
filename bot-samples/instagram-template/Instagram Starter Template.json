@@ -1,0 +1,233 @@
+{
+  "hash": "-1524481328",
+  "bot": {
+    "id": "fd90280b-4987-4d90-bac3-9ec936479dc8",
+    "name": "Instagram Starter Template",
+    "chatBotType": "CUSTOMER_FACING_BOT",
+    "description": "Instagram Template with flows for Story Mentions, Story Replies, and DMs.",
+    "status": "NEW",
+    "getStartedButtonPayload": "hi",
+    "creationTime": 1631315085263,
+    "modificationTime": 1632181765714,
+    "demo": false,
+    "skipNLP": false,
+    "language": "en-US",
+    "botAttributes": {
+      "ENABLE_AGENT_ANNOTATIONS": "false",
+      "ENABLE_DEBUG": "true"
+    },
+    "sessionLength": 0,
+    "passThroughMode": false,
+    "transcriptDisabled": false,
+    "version": "2",
+    "publicBot": false,
+    "readOnly": false
+  },
+  "responder": [],
+  "requiredContext": [],
+  "conversationMessage": [
+    {
+      "id": "0cf7a4683288045da76a3b3e91ee7af2153ac639",
+      "chatBotId": "fd90280b-4987-4d90-bac3-9ec936479dc8",
+      "userInputRequired": false,
+      "name": "Route to entry point message",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "BLANK_MESSAGE",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "preProcessMessage": "var customerInfo = botContext.getLPCustomerInfo();\nvar entryPoint = customerInfo.ctype;\nbotContext.printDebugMessage(\"type: \" + entryPoint);\nbotContext.setTriggerNextMessage(entryPoint);\n",
+      "group": "e42cc265-534f-4210-8cb2-61bae1e4e199",
+      "status": "ACTIVE",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "6666448af03fd375ccbdab277d33188dabaefbf5",
+      "chatBotId": "fd90280b-4987-4d90-bac3-9ec936479dc8",
+      "userInputRequired": false,
+      "name": "Direct Message",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Thanks for sending over a direct message!",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "04e56a3b-d6d1-4a5f-88ec-d8cdc82a9ef1",
+      "status": "ACTIVE",
+      "required": true,
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "6e523dc9cba088c90a3fe0295bf041ef1b0e89cf",
+      "chatBotId": "fd90280b-4987-4d90-bac3-9ec936479dc8",
+      "userInputRequired": false,
+      "name": "Brand Story Reply",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Thanks for replying to our story!",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "2a01a135-d0d2-4a92-b5ec-bbfe31971bc7",
+      "status": "ACTIVE",
+      "required": true,
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "d0f886eb2f1272e1f26308af05cd6da880671680",
+      "chatBotId": "fd90280b-4987-4d90-bac3-9ec936479dc8",
+      "userInputRequired": false,
+      "name": "Story Mention",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Thanks for mentioning us on your story!",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "e0f10201-c9c4-4115-881c-d9e16dc84a84",
+      "status": "ACTIVE",
+      "required": true,
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    }
+  ],
+  "menus": [],
+  "groups": [
+    {
+      "chatBotId": "fd90280b-4987-4d90-bac3-9ec936479dc8",
+      "id": "04e56a3b-d6d1-4a5f-88ec-d8cdc82a9ef1",
+      "name": "2 Direct Message",
+      "creationTime": "2021-09-20 18:33:28",
+      "modificationTime": "2021-09-20 19:34:17",
+      "dialogType": "DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    },
+    {
+      "chatBotId": "fd90280b-4987-4d90-bac3-9ec936479dc8",
+      "id": "2a01a135-d0d2-4a92-b5ec-bbfe31971bc7",
+      "name": "4 Story Reply",
+      "creationTime": "2021-09-20 18:38:28",
+      "modificationTime": "2021-09-20 19:34:36",
+      "dialogType": "DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    },
+    {
+      "chatBotId": "fd90280b-4987-4d90-bac3-9ec936479dc8",
+      "id": "e0f10201-c9c4-4115-881c-d9e16dc84a84",
+      "name": "3 Story Mention",
+      "creationTime": "2021-09-20 18:32:59",
+      "modificationTime": "2021-09-20 19:34:26",
+      "dialogType": "DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    },
+    {
+      "chatBotId": "fd90280b-4987-4d90-bac3-9ec936479dc8",
+      "id": "e42cc265-534f-4210-8cb2-61bae1e4e199",
+      "name": "1 Determine Entry Point",
+      "creationTime": "2021-09-10 19:04:45",
+      "modificationTime": "2021-09-20 18:39:20",
+      "dialogType": "FALLBACK_DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    }
+  ],
+  "platforms": [
+    {
+      "id": "a511aa0ccfe6567b9d700b0fa15e6359140ad844",
+      "chatbotId": "fd90280b-4987-4d90-bac3-9ec936479dc8",
+      "integrationType": "HTMLCLIENT",
+      "platform": "HTMLCLIENT",
+      "status": "NEW"
+    }
+  ],
+  "associatedDomains": [],
+  "dialogTemplates": []
+}
