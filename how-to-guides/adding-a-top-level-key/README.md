@@ -1,5 +1,7 @@
 # Adding a top-level key to an API response
 
+> **Note**: This guide originally appeared in the [LivePerson developer forum](https://talkyard.livepersonai.com/-57/adding-a-top-level-key-to-an-api-response).
+
 When processing API responses in Conversation Builder, [Custom Data Fields](https://developers.liveperson.com/conversation-builder-integrations-integration-basics.html#process-api-results-with-custom-data-fields) provide a straightforward way to iterate through the responses to populate structured content. However, the code which creates the custom data fields expects that the API response is in the form of an object. Many API responses will return an array at its top level, which the Custom Data Fields section cannot iterate through.
 
 We can modify the API response using custom code in the "Transform Result Script" of the integration to solve this. Here, we can add a new top-level object with a key that points to our response array, providing us with the capability to iterate through it in the Custom Data Fields.
