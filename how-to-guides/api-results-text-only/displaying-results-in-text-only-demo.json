@@ -1,0 +1,556 @@
+{
+  "hash": "-1617163894",
+  "bot": {
+    "id": "af5fb22c-3694-4d58-a5b9-2de9e4723bb0",
+    "name": "displaying-results-in-text-only-demo",
+    "chatBotType": "CUSTOMER_FACING_BOT",
+    "status": "NEW",
+    "getStartedButtonPayload": "hi",
+    "creationTime": 1632935220355,
+    "modificationTime": 1632935220355,
+    "demo": false,
+    "skipNLP": false,
+    "language": "en-US",
+    "botAttributes": {
+      "ENABLE_DEBUG": "true"
+    },
+    "sessionLength": 0,
+    "passThroughMode": false,
+    "transcriptDisabled": false,
+    "version": "2",
+    "publicBot": false,
+    "readOnly": false
+  },
+  "responder": [
+    {
+      "chatbotId": "af5fb22c-3694-4d58-a5b9-2de9e4723bb0",
+      "id": "fe87062d-0083-4e42-ae40-e45941b99dbc",
+      "name": "StoreLocator",
+      "webhook": "https://5fc54a0936bc790016344a09.mockapi.io/store-locator/1",
+      "method": "GET",
+      "defaultValues": [
+        {
+          "key": "title"
+        },
+        {
+          "key": "subTitle"
+        },
+        {
+          "key": "image"
+        },
+        {
+          "key": "itemUrl"
+        }
+      ],
+      "customDataFields": [
+        {
+          "key": "city",
+          "value": "{$.api_StoreLocator.stores[i].city}"
+        },
+        {
+          "key": "weekdayHours",
+          "value": "{$.api_StoreLocator.stores[i].weekdayHours}"
+        },
+        {
+          "key": "weekendHours",
+          "value": "{$.api_StoreLocator.stores[i].weekendHours}"
+        },
+        {
+          "key": "mapImage",
+          "value": "{$.api_StoreLocator.stores[i].mapImage}"
+        },
+        {
+          "key": "address",
+          "value": "{$.api_StoreLocator.stores[i].address}"
+        },
+        {
+          "key": "state",
+          "value": "{$.api_StoreLocator.stores[i].state}"
+        },
+        {
+          "key": "zip",
+          "value": "{$.api_StoreLocator.stores[i].zip}"
+        },
+        {
+          "key": "googleMapLink",
+          "value": "{$.api_StoreLocator.stores[i].googleMapLink}"
+        }
+      ],
+      "results": {
+        "type": "TEXT",
+        "tile": {
+          "tileData": [
+            {
+              "buttons": [],
+              "quickReplyList": []
+            }
+          ]
+        }
+      },
+      "group": "Responders",
+      "transformResultsScript": "var getContextData = botContext.getBotVariable(\"api_StoreLocator\");\nvar getContextJsonResponse = JSON.parse(getContextData.jsonData);\nvar jsonResponse = getContextJsonResponse.api_StoreLocator.stores;\nbotContext.setBotVariable('storeArray', JSON.stringify(jsonResponse), true, false);",
+      "responseDataVariable": "StoreLocator",
+      "integrationType": "API",
+      "tangoContextEnabled": false
+    }
+  ],
+  "requiredContext": [],
+  "conversationMessage": [
+    {
+      "id": "04805737d2467854f54e49034175a3bbcbee3dda",
+      "chatBotId": "af5fb22c-3694-4d58-a5b9-2de9e4723bb0",
+      "userInputRequired": false,
+      "name": "text only display stores",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT_QUESTION",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Here are the nearest stores to you.\n{$botContext.storeOptions}\nWhich would you like more information on?",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "preProcessMessage": "// Parse store results array from API call\nvar storeArray = JSON.parse(botContext.getBotVariable('storeArray'));\n// Empty string to populate a dynamic list of options for use to choose from. Also including an array for processing user response.\nvar storeOptions = '';\nvar optionsArray = [];\n// Alphabet string to properly label the options (e.g. A) opt1, B) opt2, etc)\nvar alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';\n// Iterate through list building option string as well as options array.\nfor (var i = 0; i < storeArray.length; i++) {\n   var cityName = storeArray[i].city;\n   var optionText = alphabet[i] + ') ' + cityName + '\\n';\n   storeOptions += optionText;\n   optionsArray.push(optionText);\n}\n// Set bot as bot variables.\nbotContext.setBotVariable('storeOptions', storeOptions, true, false);\nbotContext.setBotVariable('optionsArray', JSON.stringify(optionsArray), true, false);",
+      "processUserResponse": "var userResponse = botContext.getCurrentUserMessage();\nvar storeArray = JSON.parse(botContext.getBotVariable('storeArray'));\nvar optionsArray = JSON.parse(botContext.getBotVariable('optionsArray'));\n// Pass userResponse and our optiosnArray to the evaluateOptions method to check for response matches.\nvar result = botContext.evaluateOptions(userResponse, optionsArray);\n\n// If there is a matching response, find the corresponding object in our results array and set new bot variables to display. Otherwise, trigger an error handling route.\nif (result) {\n   var index = optionsArray.indexOf(result);\n   var selectedStore = storeArray[index];\n   botContext.setBotVariable('selectedId', selectedStore.id, true, false);\n   botContext.setBotVariable('selectedCity', selectedStore.city, true, false);\n   botContext.setBotVariable('selectedAddress', selectedStore.address, true, false);\n   botContext.setBotVariable('selectedWeekdayHours', selectedStore.weekdayHours, true, false);\n   botContext.setBotVariable('selectedWeekendHours', selectedStore.weekendHours, true, false);\n   botContext.setBotVariable('selectedGoogleMapLink', selectedStore.googleMapLink, true, false);\n} else {\n   botContext.setTriggerNextMessage('selection fail');\n}",
+      "group": "dc3f86dc-af21-4524-b2b2-683b8b6ea20e",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "b16bdc9978070f90d0ffdd3b71e6c0e82188e94f",
+      "prevMessageId": "b260c4dfc051c4bab54852a33fb3d4b84901a862",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT_QUESTION",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "1a4846d212100cedbfcd6a326423bf71580c9a30",
+      "chatBotId": "af5fb22c-3694-4d58-a5b9-2de9e4723bb0",
+      "userInputRequired": false,
+      "name": "text_message",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Hi there! This bot is a demonstration of processing API results for display in a text only channel. ",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "dc3f86dc-af21-4524-b2b2-683b8b6ea20e",
+      "status": "ACTIVE",
+      "nextMessageId": "6c9a839a39be2f0615bd26bdfe2fafb5b06bea01",
+      "prevMessageId": "2a4a0716ee3e3131ef6ccf300529f2bd94fd51e5",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "2a4a0716ee3e3131ef6ccf300529f2bd94fd51e5",
+      "chatBotId": "af5fb22c-3694-4d58-a5b9-2de9e4723bb0",
+      "userInputRequired": false,
+      "name": "dialog_starter",
+      "pattern": [
+        "hi",
+        "hello",
+        "howdy",
+        "(hi|hello|hey)*"
+      ],
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Hello!!",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "preProcessMessage": "var d = new Date(); \nif (botContext.getBotVariable('lastVisited') != null) { \n    botContext.setTriggerNextMessage('Welcome Back');\n} else { \n    botContext.setBotVariable('lastVisited',d,false,true); \n}",
+      "group": "dc3f86dc-af21-4524-b2b2-683b8b6ea20e",
+      "status": "ACTIVE",
+      "nextMessageId": "1a4846d212100cedbfcd6a326423bf71580c9a30",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "DIALOG_STARTER"
+    },
+    {
+      "id": "2a4bb507150a64fcc0ab03fd33927d8f99e8bb21",
+      "chatBotId": "af5fb22c-3694-4d58-a5b9-2de9e4723bb0",
+      "userInputRequired": false,
+      "name": "selection fail",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "I'm having trouble understanding which selection you are looking for. Please respond with either the letter or full name of the store you want information on.",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "dc3f86dc-af21-4524-b2b2-683b8b6ea20e",
+      "status": "ACTIVE",
+      "required": true,
+      "prevMessageId": "b16bdc9978070f90d0ffdd3b71e6c0e82188e94f",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "6a1ad4afc7be29410238f022f9ac44ad4cd8acb7",
+      "chatBotId": "af5fb22c-3694-4d58-a5b9-2de9e4723bb0",
+      "userInputRequired": false,
+      "name": "multiple_choice_question_5",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "MULTIPLE_CHOICE_QUESTION",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Would you like to see a text only or structured content result?",
+                "buttons": [],
+                "multipleChoice": {
+                  "multipleChoices": [
+                    "Text only",
+                    "Structured content"
+                  ],
+                  "displayChoice": "BUTTON",
+                  "textStyle": "NUMBERS"
+                },
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "dc3f86dc-af21-4524-b2b2-683b8b6ea20e",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "b260c4dfc051c4bab54852a33fb3d4b84901a862",
+      "prevMessageId": "6c9a839a39be2f0615bd26bdfe2fafb5b06bea01",
+      "responseMatches": [
+        {
+          "name": "structured content",
+          "conditions": [
+            {
+              "matchType": "EVAL_OPTION",
+              "evaluateOptionMatch": {
+                "value": "Structured content"
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "b260c4dfc051c4bab54852a33fb3d4b84901a862"
+          },
+          "contextDataVariables": []
+        },
+        {
+          "name": "text only",
+          "conditions": [
+            {
+              "matchType": "EVAL_OPTION",
+              "evaluateOptionMatch": {
+                "value": "Text only"
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "04805737d2467854f54e49034175a3bbcbee3dda"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "MULTIPLE_CHOICE_QUESTION",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "6c9a839a39be2f0615bd26bdfe2fafb5b06bea01",
+      "chatBotId": "af5fb22c-3694-4d58-a5b9-2de9e4723bb0",
+      "userInputRequired": false,
+      "name": "api_integration_4",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "DYNAMIC",
+        "responderName": "StoreLocator",
+        "responderId": "fe87062d-0083-4e42-ae40-e45941b99dbc"
+      },
+      "group": "dc3f86dc-af21-4524-b2b2-683b8b6ea20e",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "6a1ad4afc7be29410238f022f9ac44ad4cd8acb7",
+      "prevMessageId": "1a4846d212100cedbfcd6a326423bf71580c9a30",
+      "responseMatches": [
+        {
+          "name": "Success",
+          "conditions": [
+            {
+              "matchType": "API_RESULT",
+              "apiResultsMatch": {
+                "status": "SUCCESS"
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "API_INTEGRATION",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "b16bdc9978070f90d0ffdd3b71e6c0e82188e94f",
+      "chatBotId": "af5fb22c-3694-4d58-a5b9-2de9e4723bb0",
+      "userInputRequired": false,
+      "name": "store details",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Here you go!\n\n{$botContext.selectedAddress}, {$botContext.selectedCity}\nMon-Fri: {$botContext.selectedWeekdayHours}\nSat, Sun: {$botContext.selectedWeekendHours}\n\nGet Directions: {$botContext.selectedGoogleMapLink}",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "dc3f86dc-af21-4524-b2b2-683b8b6ea20e",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "2a4bb507150a64fcc0ab03fd33927d8f99e8bb21",
+      "prevMessageId": "04805737d2467854f54e49034175a3bbcbee3dda",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "none"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "b260c4dfc051c4bab54852a33fb3d4b84901a862",
+      "chatBotId": "af5fb22c-3694-4d58-a5b9-2de9e4723bb0",
+      "userInputRequired": false,
+      "name": "display stores",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "STRUCTURED",
+          "tile": {
+            "tileData": [
+              {
+                "title": "{StoreLocator.address}, {StoreLocator.city}",
+                "subTitle": "Mon-Fri: {StoreLocator.weekdayHours}\nSat-Sun: {StoreLocator.weekendHours}",
+                "image": "{StoreLocator.mapImage}",
+                "buttons": [
+                  {
+                    "name": "Get directions",
+                    "type": "web_url",
+                    "callback": "{StoreLocator.googleMapLink}",
+                    "webviewHeightRatio": "full",
+                    "target": "blank"
+                  }
+                ],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "dc3f86dc-af21-4524-b2b2-683b8b6ea20e",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "04805737d2467854f54e49034175a3bbcbee3dda",
+      "prevMessageId": "6a1ad4afc7be29410238f022f9ac44ad4cd8acb7",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "none"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "STRUCTURED",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "cd04ee7f3f79afe9a80c8fd1b44fbc5df4b004a1",
+      "chatBotId": "af5fb22c-3694-4d58-a5b9-2de9e4723bb0",
+      "userInputRequired": false,
+      "name": "fallback_starter",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Sorry, I am not able to understand.",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "df357285-f04a-47e5-8701-af7cd1949b32",
+      "status": "ACTIVE",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    }
+  ],
+  "menus": [],
+  "groups": [
+    {
+      "chatBotId": "af5fb22c-3694-4d58-a5b9-2de9e4723bb0",
+      "id": "dc3f86dc-af21-4524-b2b2-683b8b6ea20e",
+      "name": "1 Welcome",
+      "creationTime": "2021-09-29 13:07:00",
+      "modificationTime": "2021-09-29 13:07:00",
+      "dialogType": "DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    },
+    {
+      "chatBotId": "af5fb22c-3694-4d58-a5b9-2de9e4723bb0",
+      "id": "df357285-f04a-47e5-8701-af7cd1949b32",
+      "name": "2 Fallback",
+      "creationTime": "2021-09-29 13:07:00",
+      "modificationTime": "2021-09-29 13:07:00",
+      "dialogType": "FALLBACK_DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    }
+  ],
+  "platforms": [
+    {
+      "id": "bd6a7bb93eeb4601161c59d627df3e1c2ba45c8b",
+      "chatbotId": "af5fb22c-3694-4d58-a5b9-2de9e4723bb0",
+      "integrationType": "HTMLCLIENT",
+      "platform": "HTMLCLIENT",
+      "status": "NEW"
+    }
+  ],
+  "associatedDomains": [],
+  "dialogTemplates": []
+}
