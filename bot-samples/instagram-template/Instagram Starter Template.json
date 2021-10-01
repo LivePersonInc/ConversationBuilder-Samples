@@ -68,7 +68,7 @@
       "id": "6666448af03fd375ccbdab277d33188dabaefbf5",
       "chatBotId": "fd90280b-4987-4d90-bac3-9ec936479dc8",
       "userInputRequired": false,
-      "name": "Direct Message",
+      "name": "DirectMessage",
       "type": "BOT_MESSAGE",
       "content": {
         "contentType": "STATIC",
@@ -105,7 +105,7 @@
       "id": "6e523dc9cba088c90a3fe0295bf041ef1b0e89cf",
       "chatBotId": "fd90280b-4987-4d90-bac3-9ec936479dc8",
       "userInputRequired": false,
-      "name": "Brand Story Reply",
+      "name": "BrandStoryReply",
       "type": "BOT_MESSAGE",
       "content": {
         "contentType": "STATIC",
@@ -142,7 +142,7 @@
       "id": "d0f886eb2f1272e1f26308af05cd6da880671680",
       "chatBotId": "fd90280b-4987-4d90-bac3-9ec936479dc8",
       "userInputRequired": false,
-      "name": "Story Mention",
+      "name": "StoryMention",
       "type": "BOT_MESSAGE",
       "content": {
         "contentType": "STATIC",
