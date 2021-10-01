@@ -60,7 +60,7 @@ botContext.printDebugMessage("type: " + entryPoint);
 botContext.setTriggerNextMessage(entryPoint);
 ```
 
-The `ctype` value will be 'DirectMessage', 'StoryMention', or 'StoryReply', so the Interactions share those exact names out of convenience. Renaming them would break the flow, but they can of course be customized to provide different responses, or route the consumer to a different skill, etc.
+The `ctype` value will be 'DirectMessage', 'StoryMention', or 'BrandStoryReply', so the Interactions share those exact names out of convenience. Renaming them would break the flow, but they can of course be customized to provide different responses, or route the consumer to a different skill, etc.
 
 ### Example Use Case
 
