@@ -58,7 +58,7 @@ The [Context Session Store](https://developers.liveperson.com/conversation-orche
 
 	Click *Create Function*
 
-6. In the resulting code editor screen, replace the existing code with the following:
+6. In the resulting code editor screen, replace the existing code with the following code. Make sure to update the variable values for `accountId`, `namespace`, and optionally, `sessionId`.
 
 ```js
 function lambda(input, callback) {
