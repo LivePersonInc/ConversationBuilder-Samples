@@ -54,7 +54,7 @@ Also, ensure that you have your Conversation Orchestrator key saved to the secre
 
 ## Create the function
 
-Using the same process as the previous guide, create a new function to pull down the shift status API information and save the data to the Context Session Store. The full code of the function is listed below with comments explaining what each piece of the function does.
+Using the same process as the previous guide, create a new function to pull down the shift status API information and save the data to the Context Session Store. The full code of the function is listed below with comments explaining what each piece of the function does. Make sure to update the variable values for `accountId`, `namespace`, and optionally, `sessionId`.
 
 ```js
 function lambda(input, callback) {

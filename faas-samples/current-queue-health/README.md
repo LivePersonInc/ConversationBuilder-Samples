@@ -27,7 +27,7 @@ This guide will cover the following steps to provide access to data from the [Me
 
 ## Obtain your Conversation Orchestrator Developer Key
 
-The [Context Session Store](https://developers.liveperson.com/conversation-orchestrator-conversation-context-service-overview.html) within Conversation Orchestrator allows brands to store, retrieve, and manage custom attributes that can be used within a variety of Conversational Cloud services. The first step in this guide walks through the creation of a new namespace within the Context Session Store using Postman.
+The [Context Session Store](https://developers.liveperson.com/conversation-orchestrator-conversation-context-service-overview.html) within Conversation Orchestrator allows brands to store, retrieve, and manage custom attributes that can be used within a variety of Conversational Cloud services.
 
 1. Navigate to **Conversation Orchestrator** using the grid menu in the lower left of Conversational Cloud.
 2. Click *Developer Key* at the bottom of the left-hand menu and copy your API key. This will be used in all of our calls to the Context Service.
@@ -58,7 +58,7 @@ The [Context Session Store](https://developers.liveperson.com/conversation-orche
 
 	Click *Create Function*
 
-6. In the resulting code editor screen, replace the existing code with the following:
+6. In the resulting code editor screen, replace the existing code with the following code. Make sure to update the variable values for `accountId`, `namespace`, and optionally, `sessionId`.
 
 ```js
 function lambda(input, callback) {
