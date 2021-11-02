@@ -38,7 +38,7 @@ If you don't have access to Houston, or if Tweets matching the rule aren't displ
 7. Start the third party bot so its status is 'Online'.
 8. Replace the code in your FaaS function with the `autorespondwithsentimentanalysis.js` code in this repository.
 9. Add your Twitter Bearer Token (preceded by the word 'Bearer") to the FaaS secrets, using the key "TWITTER_TOKEN". The value will be in the format "Bearer {your_bearer_token}" (with no curly brackets).
-10. Add your Google Private Key (which will be in the downloaded JSON file available when creating a Google App Service Account) to the FaaS Secrets, using the key "GOOGLE_SECRET_KEY".
+10. Add your Google Private Key to the FaaS Secrets, using the key "GOOGLE_SECRET_KEY". The private key can be found in the downloaded JSON file for the Google service account and should begin with "-----BEGIN PRIVATE KEY-----\".
 11. In the function code, add the email from your Google Service Account JSON file into the "googleEmail" variable in the "getGoogleBearer" function
 12. In the function code, update your public response text and logic in the "determineResponse" function to match the needs of your brand. You can also update the logic if necessary (for example, to base the response off of key words in addition to sentiment).
 13. Redeploy the function.
