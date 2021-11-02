@@ -33,7 +33,7 @@ If you don't have access to Houston, or if Tweets matching the rule aren't displ
 
 3. [Create a Skill and Agent](https://developers.liveperson.com/tutorials-guides-getting-started-with-bot-building-deploy-the-bot.html) in LivePerson to handle Public Twitter messages.
 4. Create a Skill Routing rule in Houston for Public Twitter messages using [this guide](https://docs.google.com/document/d/1CrMOi6exLPjXYSWVJvkvnwPNsUQaCUKsmP3OILAZTk8/edit?usp=sharing). If you don't have permission to access the document, please contact your LivePerson representative.
-5. [Create a new FaaS function](https://developers.liveperson.com/liveperson-functions-getting-started.html) using the "Third Party Bots Custom Integration" event template and deploy the function. When creating the function, add 'api.twitter.com', 'language.googleapis.com, and 'oath2.googleapis.com' to the Domain Whitelist.
+5. [Create a new FaaS function](https://developers.liveperson.com/liveperson-functions-getting-started.html) using the "Third Party Bots Custom Integration" event template and deploy the function. When creating the function, add 'api.twitter.com', 'language.googleapis.com, and 'oauth2.googleapis.com' to the Domain Whitelist.
 6. [Create a new third party bot](https://developers.liveperson.com/third-party-bots-custom-integration.html), selecting your FaaS function as the custom integration.
 7. Start the third party bot so its status is 'Online'.
 8. Replace the code in your FaaS function with the `autorespondwithsentimentanalysis.js` code in this repository.
