@@ -2,7 +2,7 @@
 
 This guide will provide some instructions, bot template, and code to do the following:
 1. Display carousels of Shopify store items in a Web Messaging bot
-2. Allow users to browse items, store those items in a virtual 'cart', and then 'check out' via a custom link to the Shopify store checkout page going to those items
+2. Allow users to browse items, store selected items in memory, and then check out via custom link to the normal Shopify store checkout page
 
 Our architecture for achieving this is:
 - A FaaS function (running at a set interval) to get up-to-date information for the Shopify store items and then store that information in the Conversational Context Service
