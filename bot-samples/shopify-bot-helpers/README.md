@@ -9,6 +9,8 @@ Our architecture for achieving this is:
 - The Universal Tile interaction to display custom, dynamic carousels
 - Bot variables to store cart information and present dynamic URLs for the checkout page
 
+https://user-images.githubusercontent.com/25466659/155249925-355c6ddd-f2ce-4f97-9b28-b0f62c883c73.mov
+
 # Prerequisites
 
 - A Shopify store with a [Custom App](https://help.shopify.com/en/manual/apps/app-types#custom-apps) so you can get the store items
