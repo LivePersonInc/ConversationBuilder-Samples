@@ -13,7 +13,8 @@ https://user-images.githubusercontent.com/25466659/155249925-355c6ddd-f2ce-4f97-
 
 # Prerequisites
 
-- A Shopify store with a [Custom App](https://help.shopify.com/en/manual/apps/app-types#custom-apps) so you can get the store items
+- A published Shopify store with an admin-created [Custom App](https://help.shopify.com/en/manual/apps/app-types#custom-apps)
+- Items in the Shopify store with variants and images which correspond to those variants
 - A LivePerson CB Bot
 - Access to FaaS and the Conversation Context Service in LivePerson
 - Basic JavaScript knowledge
