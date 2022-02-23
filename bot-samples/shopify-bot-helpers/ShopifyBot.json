@@ -1,13 +1,13 @@
 {
-  "hash": "1527404450",
+  "hash": "-2010365573",
   "bot": {
     "id": "a6696f89-f28b-46a0-9de5-1e2ed7dfbbc0",
-    "name": "Bella Shopify Bot (02-22-2022 05:07)",
+    "name": "ShopifyBot",
     "chatBotType": "CUSTOMER_FACING_BOT",
     "status": "NEW",
     "getStartedButtonPayload": "hi",
     "creationTime": 1645567634990,
-    "modificationTime": 1645567634990,
+    "modificationTime": 1645582122919,
     "demo": false,
     "skipNLP": false,
     "language": "en-US",
@@ -271,7 +271,7 @@
           }
         }
       },
-      "preProcessMessage": "botContext.printDebugMessage(botContext.getCurrentUserMessage());\nvar text = botContext.getCurrentUserMessage();\nvar variantId = text.split(' ')[2];\nif (botContext.getBotVariable(\"activeCart\") == \"false\") { // if the cartURL variable doesn't exist already, create it\n  botContext.printDebugMessage(\"this is the user's first time adding to the cart\");\n  var cartURL = \"https://bella-loves-me.myshopify.com/cart/\" + variantId;\n  botContext.setBotVariable(\"cartURL\", cartURL, true, false);\n  botContext.setBotVariable(\"activeCart\", \"true\", true, false);\n  botContext.printDebugMessage(variantId);\n  botContext.printDebugMessage(cartURL);\n} else { // if it already exists, append it\n  botContext.printDebugMessage(\"this is NOT the user's first itme adding to the cart\");\n  var cartURL = botContext.getBotVariable(\"cartURL\") + \",\" + variantId;\n  botContext.setBotVariable(\"cartURL\", cartURL, true, false);\n  botContext.printDebugMessage(variantId);\n  botContext.printDebugMessage(cartURL);\n}\n  \n",
+      "preProcessMessage": "botContext.printDebugMessage(botContext.getCurrentUserMessage());\nvar storeURL = botContext.getBotVariable(\"storeURL\");\nvar text = botContext.getCurrentUserMessage();\nvar variantId = text.split(' ')[2];\nif (botContext.getBotVariable(\"activeCart\") == \"false\") { // if the cartURL variable doesn't exist already, create it\n  botContext.printDebugMessage(\"this is the user's first time adding to the cart\");\n  var cartURL = storeURL + \"/cart/\" + variantId;\n  botContext.setBotVariable(\"cartURL\", cartURL, true, false);\n  botContext.setBotVariable(\"activeCart\", \"true\", true, false);\n  botContext.printDebugMessage(variantId);\n  botContext.printDebugMessage(cartURL);\n} else { // if it already exists, append it\n  botContext.printDebugMessage(\"this is NOT the user's first itme adding to the cart\");\n  var cartURL = botContext.getBotVariable(\"cartURL\") + \",\" + variantId;\n  botContext.setBotVariable(\"cartURL\", cartURL, true, false);\n  botContext.printDebugMessage(variantId);\n  botContext.printDebugMessage(cartURL);\n}\n  \n",
       "processUserResponse": "function isInt(value) {\n  var x = parseFloat(value);\n  return !isNaN(value) && (x | 0) === x;\n}\nvar input = botContext.getCurrentUserMessage();\nbotContext.printDebugMessage(isInt(input));\nif (isInt(input)) {\n  var newCartURL = botContext.getBotVariable(\"cartURL\") + \":\" + input;\n  botContext.setBotVariable(\"cartURL\", newCartURL, true, false);\n}\n",
       "group": "9fbbe3ff-cfe7-4886-9ef4-b39bb5731c81",
       "status": "ACTIVE",
