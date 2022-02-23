@@ -1,0 +1,643 @@
+{
+  "hash": "1527404450",
+  "bot": {
+    "id": "a6696f89-f28b-46a0-9de5-1e2ed7dfbbc0",
+    "name": "Bella Shopify Bot (02-22-2022 05:07)",
+    "chatBotType": "CUSTOMER_FACING_BOT",
+    "status": "NEW",
+    "getStartedButtonPayload": "hi",
+    "creationTime": 1645567634990,
+    "modificationTime": 1645567634990,
+    "demo": false,
+    "skipNLP": false,
+    "language": "en-US",
+    "botAttributes": {
+      "ENABLE_AGENT_ANNOTATIONS": "false",
+      "ENABLE_DEBUG": "true",
+      "PCS_FALLBACK_LIMIT": "3"
+    },
+    "sessionLength": 0,
+    "passThroughMode": false,
+    "transcriptDisabled": false,
+    "version": "2",
+    "publicBot": false,
+    "readOnly": false
+  },
+  "responder": [
+    {
+      "chatbotId": "a6696f89-f28b-46a0-9de5-1e2ed7dfbbc0",
+      "id": "8d9f189c-19b0-40d4-9e7d-664e90cd3d2a",
+      "name": "getProducts",
+      "webhook": "https://z1.context.liveperson.net/v1/account/123456789/Shopify/properties",
+      "fileUrl": "{{file_url}}",
+      "method": "GET",
+      "headers": [
+        {
+          "key": "maven-api-key",
+          "value": "yourKeyHere"
+        }
+      ],
+      "defaultValues": [
+        {
+          "key": "title"
+        },
+        {
+          "key": "subTitle"
+        },
+        {
+          "key": "image"
+        },
+        {
+          "key": "itemUrl"
+        }
+      ],
+      "results": {
+        "type": "TEXT",
+        "tile": {
+          "tileData": [
+            {
+              "buttons": [],
+              "quickReplyList": []
+            }
+          ]
+        }
+      },
+      "group": "Responders",
+      "transformResultsScript": "var getProductsData = botContext.getBotVariable(\"api_getProducts\");\nvar getProductsJson = JSON.parse(getProductsData.jsonData);\nvar getProductsData = getProductsJson.api_getProducts;\nvar products = getProductsData.products;\nbotContext.setBotVariable(\"products\", products, true, false);",
+      "responseDataVariable": "getProducts",
+      "integrationType": "API",
+      "tangoContextEnabled": false
+    }
+  ],
+  "requiredContext": [],
+  "conversationMessage": [
+    {
+      "id": "08fcfe3987b51b98d4b78028e10ac6920f609359",
+      "chatBotId": "a6696f89-f28b-46a0-9de5-1e2ed7dfbbc0",
+      "userInputRequired": true,
+      "name": "products_carousel",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "UNIVERSAL",
+          "tile": {
+            "tileData": [
+              {
+                "buttons": [],
+                "quickReplyList": [],
+                "universalWidget": {
+                  "leMessageJson": "{$botContext.carousel}"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "preProcessMessage": "var productList = botContext.getBotVariable(\"products\"); // get the products from the context service\nvar storeURL = botContext.getBotVariable(\"storeURL\");\n\n\nvar tileArray = [];\ntileArray.length = 0;\nvar addedItems = [];\n// loop over all products\nfor (var i = 0; i < productList.length; i++) {\n  botContext.printDebugMessage(\"item # \" + i);\n  botContext.printDebugMessage(productList[i].title);\n  // check if the item has a variant with the desired size and design\n  for (var j = 0; j < productList[i].variants.length; j++) {\n    if (productList[i].variants[j].inventory_quantity > 0 && // the variant is in stock\n        addedItems.indexOf(productList[i].id) == -1 && // the product hasn't already been added to the carousel\n        tileArray.length < 10 // the carousel isn't already full\n       ) {\n // check for image and set it or set a placeholder\n      var placeholder = \"https://cdn.shopify.com/s/files/1/0549/9620/5611/products/image1_ce246dcf-9b79-47cd-84d1-18a96ff6ef18.jpg?v=1639072935\";\n      var imageSrc = \"https://cdn.shopify.com/s/files/1/0549/9620/5611/products/image1_ce246dcf-9b79-47cd-84d1-18a96ff6ef18.jpg?v=1639072935\";\n      if (!productList[i].image) {\n        imageSrc = placeholder;\n        botContext.printDebugMessage(\"the product has no image - using placeholder\");\n      } else if (!productList[i].variants[j].image_id) {\n         log(\"no image associated with this variant\");\n         imageSrc = placeholder; \n        } else if (productList[i].variants[j].image_id) {\n          var imageId = productList[i].variants[j].image_id;\n          // loop through images to find a match with the variant which is also long\n          for (var q = 0; q < productList[i].images.length; q++) {\n          if (productList[i].images[q].id == imageId && productList[i].images[q].height > productList[i].images[q].width) {\n            log(q);\n            imageSrc = productList[i].images[q].src;\n            botContext.printDebugMessage(\"the product has an image\");\n          }\n        }       \n      } else {\n        imageSrc = placeholder;\n      }\n      // create the tile\n  var tile = {\n    type: \"vertical\",\n    elements: []\n  };\n  // add the image to tile\n      log(imageSrc);\n  tile.elements.push({\n        type: \"image\",\n        url: imageSrc, // this will change once images are added (productList[i].images[0].src)\n        click: {\n          actions: [\n            {\n              type: \"link\",\n              uri: storeURL + \"/products/\" + productList[i].handle + \"?variant=\" + productList[i].variants[j].id,\n              target: \"blank\"\n            }\n          ]\n        }\n      });\n  // add the title to tile\n  tile.elements.push({\n        type: \"text\",\n        style: {\n          bold: true,\n          size: \"large\"\n        },\n        text: productList[i].title + \" - \" + productList[i].variants[j].option2,\n        tooltip: productList[i].title + \" - \" + productList[i].variants[j].option2\n      });\n      // add a link to the product to the tile\n      tile.elements.push({\n        title: \"See details\",\n        type: \"button\",\n        click: {\n          actions: [\n            {\n              type: \"link\",\n              uri: storeURL + \"/products/\" + productList[i].handle + \"?variant=\" + productList[i].variants[j].id,\n              target: \"blank\"\n            }\n          ]\n        },\n        tooltip: \"See detailed info about \" + productList[i].title\n      });\n      // Add an 'add to cart' button which will store the variant ID to later form a dyanamic cart link\n      tile.elements.push({\n        title: \"Add to cart\",\n        type: \"button\",\n        click: {\n          actions: [\n            {\n              type: \"publishText\",\n              text: \"Product #: \" + productList[i].variants[j].id\n            }\n          ]\n        },\n        tooltip: \"Add \" + productList[i].title + \" to your cart\"\n      });\n  tileArray.push(tile);\n  addedItems.push(productList[i].id);\n    }\n  }\n}\n\nvar carousel = {\n  \"padding\": 10,\n  \"type\": \"carousel\",\n  \"elements\": tileArray\n};\n// handle single length array results\nif (tileArray.length == 1) {\n  var carouselJson = JSON.stringify(tileArray[0]);\n} else {\n  var carouselJson = JSON.stringify(carousel);\n}\nlog(carouselJson);\nbotContext.setBotVariable(\"carousel\", carouselJson, true, false);\nbotContext.printDebugMessage(tileArray.length);\nbotContext.printDebugMessage(addedItems);",
+      "group": "e442f696-fe40-4ad7-a91f-9a6ea6c41e6c",
+      "status": "ACTIVE",
+      "required": true,
+      "prevMessageId": "d68e4fd128de475d6132b7f34586bf1742f207bf",
+      "responseMatches": [
+        {
+          "name": "add to cart",
+          "conditions": [
+            {
+              "matchType": "REGEX",
+              "regexMatch": {
+                "regexText": "Product #: [0-9]",
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "2e3996b436ef2016b35bea3e9e0fa83f68411e63"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "UNIVERSAL",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "2032e904bf0cc2d0526ad44b82dacdb986790169",
+      "chatBotId": "a6696f89-f28b-46a0-9de5-1e2ed7dfbbc0",
+      "userInputRequired": false,
+      "name": "add_to_cart_starter",
+      "pattern": [
+        "Product #"
+      ],
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "DIALOG_STARTER",
+          "tile": {
+            "tileData": [
+              {
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "9fbbe3ff-cfe7-4886-9ef4-b39bb5731c81",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "2e3996b436ef2016b35bea3e9e0fa83f68411e63",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "DIALOG_STARTER"
+    },
+    {
+      "id": "238d9d8a3f394e4874a1ce48773b4ec6259a4987",
+      "chatBotId": "a6696f89-f28b-46a0-9de5-1e2ed7dfbbc0",
+      "userInputRequired": false,
+      "name": "checkout_or_continue",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "BUTTON",
+          "tile": {
+            "tileData": [
+              {
+                "text": "I've added the item to your cart. Would you like to check out or continue shopping?",
+                "buttons": [
+                  {
+                    "name": "Check out",
+                    "type": "web_url",
+                    "callback": "{$botContext.cartURL}",
+                    "webviewHeightRatio": "full",
+                    "target": "blank"
+                  },
+                  {
+                    "name": "Continue shopping",
+                    "type": "postback",
+                    "callback": "Continue shopping"
+                  }
+                ],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "9fbbe3ff-cfe7-4886-9ef4-b39bb5731c81",
+      "status": "ACTIVE",
+      "required": true,
+      "prevMessageId": "2e3996b436ef2016b35bea3e9e0fa83f68411e63",
+      "responseMatches": [
+        {
+          "name": "Continue shopping",
+          "conditions": [
+            {
+              "matchType": "PATTERN",
+              "patternMatch": {
+                "patterns": [
+                  "Continue shopping",
+                  "Continue Shopping",
+                  "shopping",
+                  "keep shopping"
+                ],
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "d68e4fd128de475d6132b7f34586bf1742f207bf"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "BUTTON",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "2e3996b436ef2016b35bea3e9e0fa83f68411e63",
+      "chatBotId": "a6696f89-f28b-46a0-9de5-1e2ed7dfbbc0",
+      "userInputRequired": false,
+      "name": "how_many",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "MULTIPLE_CHOICE_QUESTION",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Great choice! How many? Use the buttons below or enter a number.",
+                "buttons": [],
+                "multipleChoice": {
+                  "multipleChoices": [
+                    "1",
+                    "2",
+                    "3",
+                    "4"
+                  ],
+                  "displayChoice": "BUTTON",
+                  "textStyle": "NUMBERS"
+                },
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "preProcessMessage": "botContext.printDebugMessage(botContext.getCurrentUserMessage());\nvar text = botContext.getCurrentUserMessage();\nvar variantId = text.split(' ')[2];\nif (botContext.getBotVariable(\"activeCart\") == \"false\") { // if the cartURL variable doesn't exist already, create it\n  botContext.printDebugMessage(\"this is the user's first time adding to the cart\");\n  var cartURL = \"https://bella-loves-me.myshopify.com/cart/\" + variantId;\n  botContext.setBotVariable(\"cartURL\", cartURL, true, false);\n  botContext.setBotVariable(\"activeCart\", \"true\", true, false);\n  botContext.printDebugMessage(variantId);\n  botContext.printDebugMessage(cartURL);\n} else { // if it already exists, append it\n  botContext.printDebugMessage(\"this is NOT the user's first itme adding to the cart\");\n  var cartURL = botContext.getBotVariable(\"cartURL\") + \",\" + variantId;\n  botContext.setBotVariable(\"cartURL\", cartURL, true, false);\n  botContext.printDebugMessage(variantId);\n  botContext.printDebugMessage(cartURL);\n}\n  \n",
+      "processUserResponse": "function isInt(value) {\n  var x = parseFloat(value);\n  return !isNaN(value) && (x | 0) === x;\n}\nvar input = botContext.getCurrentUserMessage();\nbotContext.printDebugMessage(isInt(input));\nif (isInt(input)) {\n  var newCartURL = botContext.getBotVariable(\"cartURL\") + \":\" + input;\n  botContext.setBotVariable(\"cartURL\", newCartURL, true, false);\n}\n",
+      "group": "9fbbe3ff-cfe7-4886-9ef4-b39bb5731c81",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "238d9d8a3f394e4874a1ce48773b4ec6259a4987",
+      "prevMessageId": "2032e904bf0cc2d0526ad44b82dacdb986790169",
+      "responseMatches": [
+        {
+          "name": "a number",
+          "conditions": [
+            {
+              "matchType": "REGEX",
+              "regexMatch": {
+                "regexText": "[0-9]",
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        },
+        {
+          "name": "no match",
+          "conditions": [
+            {
+              "matchType": "NO_MATCH",
+              "noMatch": {
+                "fallbackMessage": "Please enter in how many of this product you want to add to your cart."
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "2e3996b436ef2016b35bea3e9e0fa83f68411e63"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "MULTIPLE_CHOICE_QUESTION",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "35c13373240ec38a8a12f77b8dbaa044af628b36",
+      "chatBotId": "a6696f89-f28b-46a0-9de5-1e2ed7dfbbc0",
+      "userInputRequired": false,
+      "name": "view_cart_starter",
+      "pattern": [
+        "cart",
+        "checkout",
+        "check out"
+      ],
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "DIALOG_STARTER",
+          "tile": {
+            "tileData": [
+              {
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "c5c8cfe5-2ed5-4b7f-80a1-d82c109f6ade",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "3ca8506a2cb53d914647b97fbebaaa99e9a37147",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "DIALOG_STARTER"
+    },
+    {
+      "id": "3ca8506a2cb53d914647b97fbebaaa99e9a37147",
+      "chatBotId": "a6696f89-f28b-46a0-9de5-1e2ed7dfbbc0",
+      "userInputRequired": false,
+      "name": "check_activeCart_status",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "{$botContext.cartMessage}",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "preProcessMessage": "var activeCart = botContext.getBotVariable(\"activeCart\");\nvar cartMessage = \"\";\nif (activeCart == \"true\") {\n  cartMessage = \"Let me fetch your cart information. One moment.\";\n  botContext.sendMessage(cartMessage);\n  botContext.setTriggerNextMessage('view cart');\n} else {\n cartMessage = \"Sorry. I could not find any items in your shopping cart.\";\n  botContext.sendMessage(cartMessage);\n  botContext.setTriggerNextMessage('9.2 Anything else');\n}\n\n",
+      "group": "c5c8cfe5-2ed5-4b7f-80a1-d82c109f6ade",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "c84dbd63a9edad20c7fd8d11a46c596af5541618",
+      "prevMessageId": "35c13373240ec38a8a12f77b8dbaa044af628b36",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT",
+      "comment": {
+        "content": "some code is here - choosing what to do based on if there is an active shopping cart for the user.",
+        "lastCommenterName": "LPA-cshapera",
+        "lastCommenterId": "2aedc648d4fc493eb0ce6748c677c506",
+        "lastModifiedDate": 1637774672213
+      }
+    },
+    {
+      "id": "c84dbd63a9edad20c7fd8d11a46c596af5541618",
+      "chatBotId": "a6696f89-f28b-46a0-9de5-1e2ed7dfbbc0",
+      "userInputRequired": false,
+      "name": "view_cart",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "BUTTON",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Click the button below to view your cart.",
+                "buttons": [
+                  {
+                    "name": "Cart",
+                    "type": "web_url",
+                    "callback": "{$botContext.cartURL}",
+                    "target": "blank"
+                  }
+                ],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "c5c8cfe5-2ed5-4b7f-80a1-d82c109f6ade",
+      "status": "ACTIVE",
+      "required": true,
+      "prevMessageId": "3ca8506a2cb53d914647b97fbebaaa99e9a37147",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "none"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "BUTTON",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "d68e4fd128de475d6132b7f34586bf1742f207bf",
+      "chatBotId": "a6696f89-f28b-46a0-9de5-1e2ed7dfbbc0",
+      "userInputRequired": false,
+      "name": "get_products",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "DYNAMIC",
+        "responderName": "getProducts",
+        "responderId": "8d9f189c-19b0-40d4-9e7d-664e90cd3d2a"
+      },
+      "group": "e442f696-fe40-4ad7-a91f-9a6ea6c41e6c",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "08fcfe3987b51b98d4b78028e10ac6920f609359",
+      "prevMessageId": "e2279b296c06fbb55fd1222636d5ef1a3a0ae6ea",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "API_INTEGRATION",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "e2279b296c06fbb55fd1222636d5ef1a3a0ae6ea",
+      "chatBotId": "a6696f89-f28b-46a0-9de5-1e2ed7dfbbc0",
+      "userInputRequired": false,
+      "name": "shop_starter",
+      "pattern": [
+        "shop"
+      ],
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "DIALOG_STARTER",
+          "tile": {
+            "tileData": [
+              {
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "e442f696-fe40-4ad7-a91f-9a6ea6c41e6c",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "d68e4fd128de475d6132b7f34586bf1742f207bf",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "DIALOG_STARTER"
+    },
+    {
+      "id": "f26c4a6e6b72ecc42e1f04518afa223578460222",
+      "chatBotId": "a6696f89-f28b-46a0-9de5-1e2ed7dfbbc0",
+      "userInputRequired": false,
+      "name": "fallback_starter",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Sorry, I am not able to understand.",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "c2d48372-d4ba-47ee-8bf1-5f9a52078073",
+      "status": "ACTIVE",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "a7d305d096cd19866be24c0b4c5a202a550faecc"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    }
+  ],
+  "menus": [],
+  "groups": [
+    {
+      "chatBotId": "a6696f89-f28b-46a0-9de5-1e2ed7dfbbc0",
+      "id": "9fbbe3ff-cfe7-4886-9ef4-b39bb5731c81",
+      "name": "2 Add to Cart",
+      "creationTime": "2022-02-22 17:07:15",
+      "modificationTime": "2022-02-22 18:34:59",
+      "dialogType": "DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    },
+    {
+      "chatBotId": "a6696f89-f28b-46a0-9de5-1e2ed7dfbbc0",
+      "id": "c2d48372-d4ba-47ee-8bf1-5f9a52078073",
+      "name": "0 Fallback",
+      "creationTime": "2022-02-22 17:07:15",
+      "modificationTime": "2022-02-22 17:07:15",
+      "dialogType": "FALLBACK_DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    },
+    {
+      "chatBotId": "a6696f89-f28b-46a0-9de5-1e2ed7dfbbc0",
+      "id": "c5c8cfe5-2ed5-4b7f-80a1-d82c109f6ade",
+      "name": "3 View Cart",
+      "creationTime": "2022-02-22 17:07:15",
+      "modificationTime": "2022-02-22 18:42:44",
+      "dialogType": "DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    },
+    {
+      "chatBotId": "a6696f89-f28b-46a0-9de5-1e2ed7dfbbc0",
+      "id": "e442f696-fe40-4ad7-a91f-9a6ea6c41e6c",
+      "name": "1 Shopping",
+      "creationTime": "2022-02-22 18:29:53",
+      "modificationTime": "2022-02-22 18:29:53",
+      "dialogType": "DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    }
+  ],
+  "globalFunctions": {
+    "chatBotId": "a6696f89-f28b-46a0-9de5-1e2ed7dfbbc0",
+    "methods": "function __initConversation() { \n\n  // set the cart as inactive\n  var bearerToken = botContext.getLPEngagementAttribute(\"BearerToken\");\n  botContext.setBotVariable(\"activeCart\", \"false\", true, false);\n  botContext.setBotVariable(\"bearerToken\", bearerToken, true, false);\n  botContext.setBotVariable(\"storeURL\", \"https://yourstorename.myshopify.com\", true, false);\n}\n// add some helper functions\nvar log = function (e) { botContext.printDebugMessage(e);};\nvar getVar = function (arg) {   return botContext.getBotVariable(arg);};\nvar setVar = function (arg,val) {   botContext.setBotVariable(arg, val, true, true);};",
+    "creationTime": "2022-02-22 17:07:16",
+    "modificationTime": "2022-02-22 18:48:33"
+  },
+  "platforms": [
+    {
+      "id": "3e84b7447833107ff4daad0f9f8c1251c34b49f3",
+      "chatbotId": "a6696f89-f28b-46a0-9de5-1e2ed7dfbbc0",
+      "integrationType": "HTMLCLIENT",
+      "platform": "HTMLCLIENT",
+      "status": "NEW"
+    }
+  ],
+  "associatedDomains": [],
+  "dialogTemplates": []
+}
