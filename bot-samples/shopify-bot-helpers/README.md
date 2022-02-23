@@ -38,7 +38,7 @@ This is an more advanced example of a Universal Tile pre-process code which can 
 # Instructions
 
 1. Create a custom app for your Shopify store and get the authorization token or URL
-2. Update the 1Shopify2ContextService.js` FaaS function with your Shopify/account information, deploy it, and run it. Ensure that you whitelist `*.context.liveperson.net` and `*.myshopify.com`
+2. Update the Shopify2ContextService.js` FaaS function with your Shopify/account information, deploy it, and run it. Ensure that you whitelist `*.context.liveperson.net` and `*.myshopify.com`
 3. Import the `ShopifyBot.json` file as a new CB bot in your account
 4. In the bot, update the integration URL with your account's account number and add your `maven-api-key` value
 5. In the bot's global function, update the `storeURL` variable to the URL for your store (eg. `https://mystorename.myshopify.com`)
