@@ -33,7 +33,7 @@ This bot file contains a CB bot with a minimal Shopify experience (browse item c
 
 #### FilteredCarousel.js
 
-This is an more advanced example of a Universal Tile pre-process code which can filter down the Shopify product list as the user desired. In production, you would have filters (bot variables) based on user profile or questions asked by the bot and filter the displayed products accordingly.
+This is a more advanced example of a Universal Tile pre-process code which can filter down the Shopify product list as the user desired. In production, you would have filters (bot variables) based on user profile or questions asked by the bot and filter the displayed products accordingly.
 
 # Instructions
 
