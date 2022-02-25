@@ -42,8 +42,8 @@ This is a more advanced example of a Universal Tile pre-process code which can f
 3. Import the `ShopifyBot.json` file as a new CB bot in your account
 4. In the bot, update the integration URL with your account's account number and add your `maven-api-key` value
 5. In the bot's global function, update the `storeURL` variable to the URL for your store (eg. `https://mystorename.myshopify.com`)
-5. If you have access to Houston, whitelist `https://cdn.shopify.com`. Otherwise, contact your LivePerson representative.
-6. Test the bot in the Previewer or in a Web Engagement. Try adding multiple items and then checking out.
+6. If you have access to Houston, whitelist `https://cdn.shopify.com`. Otherwise, contact your LivePerson representative.
+7. Test the bot in the Previewer or in a Web Engagement. Try adding multiple items and then checking out.
 
 # Notes
 
