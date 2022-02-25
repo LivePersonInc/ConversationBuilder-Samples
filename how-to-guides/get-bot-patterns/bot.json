@@ -1,0 +1,1631 @@
+{
+  "hash": "-792327368",
+  "bot": {
+    "id": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+    "name": "B.I.G.",
+    "chatBotType": "CUSTOMER_FACING_BOT",
+    "description": "Answers questions from viewers or prospective contestants of the internet show, \"Big Head\".",
+    "status": "NEW",
+    "getStartedButtonPayload": "hi",
+    "creationTime": 1616441745600,
+    "modificationTime": 1634768456219,
+    "entityDataSourceId": "0afbd541-9caf-4862-ad77-67379968dc1f",
+    "demo": false,
+    "skipNLP": false,
+    "language": "en-US",
+    "botAttributes": {
+      "DEFAULT_ERROR_MESSAGE": "Yikes - system malfunction over here. Please check back later.",
+      "ENABLE_AGENT_ANNOTATIONS": "false",
+      "ENABLE_DEBUG": "true"
+    },
+    "sessionLength": 0,
+    "passThroughMode": false,
+    "transcriptDisabled": false,
+    "version": "2",
+    "publicBot": false,
+    "transferGroupId": "daf69cbb-b6eb-40b0-bbd0-34d1689971ee",
+    "readOnly": false
+  },
+  "responder": [
+    {
+      "chatbotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "id": "7e1a6034-492c-43ca-886a-fec803190bed",
+      "name": "jService",
+      "webhook": "https://jservice.io/api/random",
+      "method": "GET",
+      "defaultValues": [
+        {
+          "key": "title"
+        },
+        {
+          "key": "subTitle"
+        },
+        {
+          "key": "image"
+        },
+        {
+          "key": "itemUrl"
+        }
+      ],
+      "customDataFields": [
+        {
+          "key": "answer",
+          "value": "{$.api_jService[0].answer}"
+        },
+        {
+          "key": "question",
+          "value": "{$.api_jService[0].question}"
+        },
+        {
+          "key": "category",
+          "value": "{$.api_jService[0].category.title}"
+        }
+      ],
+      "results": {
+        "type": "TEXT",
+        "tile": {
+          "tileData": [
+            {
+              "buttons": [],
+              "quickReplyList": []
+            }
+          ]
+        }
+      },
+      "group": "Responders",
+      "responseDataVariable": "jService",
+      "integrationType": "API",
+      "tangoContextEnabled": false
+    }
+  ],
+  "requiredContext": [],
+  "conversationMessage": [
+    {
+      "id": "043307a6038b81cd834e67eb9b5faedc0206ef46",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "quick_reply_21",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "QUICK_REPLY",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Choose from the options below.",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "quickReplies": [
+        {
+          "type": "text",
+          "title": "Quiz Me!",
+          "payload": "Quiz"
+        },
+        {
+          "type": "text",
+          "title": "Sign me up!",
+          "payload": "contestant"
+        },
+        {
+          "type": "text",
+          "title": "I want to watch!",
+          "payload": "watch"
+        }
+      ],
+      "group": "44c2c806-9a74-418a-ba22-7070ad1347a0",
+      "status": "ACTIVE",
+      "required": true,
+      "prevMessageId": "44a6254d82aa301d227e93c3a32040468c846566",
+      "responseMatches": [
+        {
+          "name": "Sign me up",
+          "conditions": [
+            {
+              "matchType": "PATTERN",
+              "patternMatch": {
+                "patterns": [
+                  "contestant",
+                  "sign me up"
+                ],
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "5ddd09ecf4635a8817572b897d816a4304d7a857"
+          },
+          "contextDataVariables": []
+        },
+        {
+          "name": "Quiz me",
+          "conditions": [
+            {
+              "matchType": "PATTERN",
+              "patternMatch": {
+                "patterns": [
+                  "Quiz",
+                  "Quiz Me!"
+                ],
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "DIALOG",
+            "value": "f04c51d2-03ee-4b80-9fef-f0f07d346eb9"
+          },
+          "contextDataVariables": []
+        },
+        {
+          "name": "Watch",
+          "conditions": [
+            {
+              "matchType": "PATTERN",
+              "patternMatch": {
+                "patterns": [
+                  "watch"
+                ],
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "QUICK_REPLY",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "17bd894345d5cdd5b72b32dbffbb5ddd4f65e12c",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "quick_reply_28",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "QUICK_REPLY",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Let's check your location.",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "quickReplies": [
+        {
+          "type": "location",
+          "title": "Get Location"
+        }
+      ],
+      "group": "adedc9bf-5823-433e-a69d-93cb6f417cdf",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "a57b9252fc572a0c54cd0e380347fcab96d63bb6",
+      "prevMessageId": "c4ab243e168584c9983353a28cbe226804a4f8da",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "QUICK_REPLY",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "17d5db95a0d58c25889ddae3153f2033c00834a3",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "text_13",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "From the category of \"{$botContext.category}\": ",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "f04c51d2-03ee-4b80-9fef-f0f07d346eb9",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "48bfbe9b31f827418bb20bbcc4dd74801be18b31",
+      "prevMessageId": "7b694d97df5cd878c00c7a1003f547a7c5c8ef49",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT",
+      "interactionDelay": "200"
+    },
+    {
+      "id": "262791c29e7944e0874410041768febfb6fd80c3",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "text_question_15",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT_QUESTION",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Do you have a computer with a decent mic and webcam?",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "f92b7157-8783-40f4-8d6f-6a125cf03052",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "ca076d09ec361b529b07c7183e698c48e765ee59",
+      "prevMessageId": "5ddd09ecf4635a8817572b897d816a4304d7a857",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT_QUESTION",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "44a6254d82aa301d227e93c3a32040468c846566",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "text_26",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "What are you looking for?",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "44c2c806-9a74-418a-ba22-7070ad1347a0",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "043307a6038b81cd834e67eb9b5faedc0206ef46",
+      "prevMessageId": "d78f0924e1333db580fa69b9bc9cdfa17b32720a",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "450f9b31ccf757edbaba3027c438b41dec82ac95",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "text_question13",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT_QUESTION",
+          "tile": {
+            "tileData": [
+              {
+                "text": "What's your response?",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "f04c51d2-03ee-4b80-9fef-f0f07d346eb9",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "77d40bad9cb2b77a997f797d11cc4d6608847f91",
+      "prevMessageId": "48bfbe9b31f827418bb20bbcc4dd74801be18b31",
+      "responseMatches": [
+        {
+          "name": "Correct Answer",
+          "conditions": [
+            {
+              "matchType": "REGEX",
+              "regexMatch": {
+                "regexText": "^[^0-9]*$",
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [
+            {
+              "matchType": "CONTAINS",
+              "contextName": "{$userMessage}",
+              "value": "answer"
+            },
+            {
+              "matchType": "CONTAINS",
+              "contextName": "answer",
+              "value": "{$userMessage}"
+            }
+          ],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "77d40bad9cb2b77a997f797d11cc4d6608847f91"
+          },
+          "contextDataVariables": []
+        },
+        {
+          "name": "Wrong Answer",
+          "conditions": [
+            {
+              "matchType": "REGEX",
+              "regexMatch": {
+                "regexText": "^[^0-9]*$",
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [
+            {
+              "matchType": "NOT_CONTAINS",
+              "contextName": "{$userMessage}",
+              "value": "answer"
+            }
+          ],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "b286caabb3aba24854b489b1bc3471da194bf038"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT_QUESTION",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "465ad6f607b2ed1000ab75b34652bac8ad6d4a52",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "escalation_27",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "DYNAMIC",
+        "results": {
+          "type": "ESCALATION",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Transferring to jerboi, Cale.",
+                "buttons": [],
+                "quickReplyList": [],
+                "escalation": {
+                  "agentSkillId": "3402109730",
+                  "tangoContextEnabled": false
+                }
+              }
+            ]
+          }
+        }
+      },
+      "group": "5a672fd2-2c66-4794-beab-5b308f0bff32",
+      "status": "ACTIVE",
+      "required": true,
+      "prevMessageId": "84a622c255a54cda663787343380bbac763e7c3f",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "none"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "ESCALATION",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "48bfbe9b31f827418bb20bbcc4dd74801be18b31",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "text_12",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "{$botContext.question}. ",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "f04c51d2-03ee-4b80-9fef-f0f07d346eb9",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "450f9b31ccf757edbaba3027c438b41dec82ac95",
+      "prevMessageId": "17d5db95a0d58c25889ddae3153f2033c00834a3",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT",
+      "interactionDelay": "200"
+    },
+    {
+      "id": "4b85e55082e598837f95714eb17c5a433bae9f6b",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "image_18",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "IMAGE",
+          "tile": {
+            "tileData": [
+              {
+                "url": "https://media.tenor.com/images/45b5263506ff77c31f9b27ba563c0e7c/tenor.gif",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "f92b7157-8783-40f4-8d6f-6a125cf03052",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "99c6861390b62174dfb7aa9de480fbcde5438813",
+      "prevMessageId": "ca076d09ec361b529b07c7183e698c48e765ee59",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "IMAGE"
+    },
+    {
+      "id": "506207ba90356b5916e09a5a80a2833246b7c23e",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "text_question_20",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT_QUESTION",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Lastly, any special skills, notable anecdotes, or cool traits we should know about?",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "f92b7157-8783-40f4-8d6f-6a125cf03052",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "b106d21e60bbe4ddb80877d7f7d9aa5bb4973867",
+      "prevMessageId": "99c6861390b62174dfb7aa9de480fbcde5438813",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT_QUESTION",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "5ddd09ecf4635a8817572b897d816a4304d7a857",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "Contestant2",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Awesome! We'd be delighted to have you on the show.",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "f92b7157-8783-40f4-8d6f-6a125cf03052",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "262791c29e7944e0874410041768febfb6fd80c3",
+      "prevMessageId": "d4679acaf222d404cc56b1f66b9cff5615303624",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "7065b0bb1309197904d8f870701e9114250f5c0d",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "api_integration_8",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "DYNAMIC",
+        "responderName": "jService",
+        "responderId": "7e1a6034-492c-43ca-886a-fec803190bed"
+      },
+      "postProcessMessage": "var getResponse = botContext.getBotVariable(\"api_jService\");\nvar responseJson = JSON.parse(getResponse.jsonData);\nvar cleanJson = responseJson.api_jService;\nbotContext.printDebugMessage(cleanJson[0].category.title);\nvar category = cleanJson[0].category.title;\nvar properCaseCategory = category[0].toUpperCase() + category.substring(1);\nbotContext.setBotVariable(\"answer\", cleanJson[0].answer, true, false);\nbotContext.setBotVariable(\"question\", cleanJson[0].question, true, false);\nbotContext.setBotVariable(\"category\", properCaseCategory, true, false);\nbotContext.printDebugMessage(cleanJson[0].answer);",
+      "group": "f04c51d2-03ee-4b80-9fef-f0f07d346eb9",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "7b694d97df5cd878c00c7a1003f547a7c5c8ef49",
+      "prevMessageId": "95ba4dfda046cf6de665159b88d7c5ef4630545a",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "API_INTEGRATION",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "77d40bad9cb2b77a997f797d11cc4d6608847f91",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "text_22",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "{$botContext.answer} is Correct! You should consider signing up to play!",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "f04c51d2-03ee-4b80-9fef-f0f07d346eb9",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "b286caabb3aba24854b489b1bc3471da194bf038",
+      "prevMessageId": "450f9b31ccf757edbaba3027c438b41dec82ac95",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "fea80a211719561cad3932b85d94f4732a6042dd"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "7b694d97df5cd878c00c7a1003f547a7c5c8ef49",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "text_21",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Get ready for trivia!",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "f04c51d2-03ee-4b80-9fef-f0f07d346eb9",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "17d5db95a0d58c25889ddae3153f2033c00834a3",
+      "prevMessageId": "7065b0bb1309197904d8f870701e9114250f5c0d",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "821fdaf1e6749ad111245ec1980168925b263a6c",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "dialog_starter",
+      "pattern": [
+        "hi",
+        "hello",
+        "howdy",
+        "(hi|hello|hey)*"
+      ],
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "DIALOG_STARTER",
+          "tile": {
+            "tileData": [
+              {
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ],
+            "sampleUserInput": "Hello!!"
+          }
+        }
+      },
+      "preProcessMessage": "var d = new Date(); \nif (botContext.getBotVariable('lastVisited') != null) { \n    botContext.setTriggerNextMessage('Welcome Back');\n} else { \n    botContext.setBotVariable('lastVisited',d,false,true); \n}",
+      "group": "44c2c806-9a74-418a-ba22-7070ad1347a0",
+      "status": "ACTIVE",
+      "nextMessageId": "d78f0924e1333db580fa69b9bc9cdfa17b32720a",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "DIALOG_STARTER"
+    },
+    {
+      "id": "84a622c255a54cda663787343380bbac763e7c3f",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "dialog_starter_25",
+      "pattern": [
+        "human",
+        "person",
+        "i want to talk to you",
+        "real person",
+        "human being",
+        "rep",
+        "csr",
+        "i want to talk to cale",
+        "cale"
+      ],
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "DIALOG_STARTER",
+          "tile": {
+            "tileData": [
+              {
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "5a672fd2-2c66-4794-beab-5b308f0bff32",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "465ad6f607b2ed1000ab75b34652bac8ad6d4a52",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "DIALOG_STARTER"
+    },
+    {
+      "id": "86c9a16a5468c6e63744a37e066ac130d4018690",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "text_24",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Check out the Big Head archives here: https://www.facebook.com/bigheadonline/videos/",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "d35753f9-be11-45cf-a4c6-504e4a8a28a8",
+      "status": "ACTIVE",
+      "required": true,
+      "prevMessageId": "b8b6ff3220b821769d5544a64e3b0aecd8140f92",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "44a6254d82aa301d227e93c3a32040468c846566"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "95ba4dfda046cf6de665159b88d7c5ef4630545a",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "dialog_starter_11",
+      "pattern": [
+        "quiz me",
+        "quiz",
+        "ask me a question",
+        "quiz me again"
+      ],
+      "intentId": "9a8cbe7b-e5b9-4987-b77c-1b374c3ac4a4",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "DIALOG_STARTER",
+          "tile": {
+            "tileData": [
+              {
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "f04c51d2-03ee-4b80-9fef-f0f07d346eb9",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "7065b0bb1309197904d8f870701e9114250f5c0d",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "DIALOG_STARTER"
+    },
+    {
+      "id": "99c6861390b62174dfb7aa9de480fbcde5438813",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "text_question_17",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT_QUESTION",
+          "tile": {
+            "tileData": [
+              {
+                "text": "What's the best email address to reach you at?",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "f92b7157-8783-40f4-8d6f-6a125cf03052",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "506207ba90356b5916e09a5a80a2833246b7c23e",
+      "prevMessageId": "4b85e55082e598837f95714eb17c5a433bae9f6b",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT_QUESTION",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "a3fc9ac81a373eef606a4af15d4043666559247e",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "fallback_starter",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "I don't know what to say. I'm speechless...",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "5f00457c-a84f-4160-a4ba-d3d93e96884d",
+      "status": "ACTIVE",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "043307a6038b81cd834e67eb9b5faedc0206ef46"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "a57b9252fc572a0c54cd0e380347fcab96d63bb6",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "text_29",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "{$location.city}\n{$location.state}\n{$location.zip}\n{$location.lat}\n{$location.lng}\n{$location.latlng}",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "preProcessMessage": "var location = botContext.getUserLocation();\nvar cityName = location.getCityName();\nvar lat = location.getLatitude();\n\nbotContext.printDebugMessage(\"LOCATION: \"+ cityName + \" and \" + lat);\n",
+      "group": "adedc9bf-5823-433e-a69d-93cb6f417cdf",
+      "status": "ACTIVE",
+      "required": true,
+      "prevMessageId": "17bd894345d5cdd5b72b32dbffbb5ddd4f65e12c",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "b106d21e60bbe4ddb80877d7f7d9aa5bb4973867",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "text_19",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Great! Thanks for applying. We'll be in touch should you be accepted to play Big Head.",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "f92b7157-8783-40f4-8d6f-6a125cf03052",
+      "status": "ACTIVE",
+      "required": true,
+      "prevMessageId": "506207ba90356b5916e09a5a80a2833246b7c23e",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "44a6254d82aa301d227e93c3a32040468c846566"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT",
+      "interactionDelay": "500"
+    },
+    {
+      "id": "b286caabb3aba24854b489b1bc3471da194bf038",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "text_14",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "The correct response is... {$botContext.answer}. Hope you got it right!",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "f04c51d2-03ee-4b80-9fef-f0f07d346eb9",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "fea80a211719561cad3932b85d94f4732a6042dd",
+      "prevMessageId": "77d40bad9cb2b77a997f797d11cc4d6608847f91",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT",
+      "interactionDelay": "200"
+    },
+    {
+      "id": "b8b6ff3220b821769d5544a64e3b0aecd8140f92",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "dialog_starter_20",
+      "pattern": [
+        "watch",
+        "I want to watch",
+        "where can I watch"
+      ],
+      "intentId": "22c9b9c9-1c7e-4665-b529-1a83c876e1d5",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "DIALOG_STARTER",
+          "tile": {
+            "tileData": [
+              {
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "d35753f9-be11-45cf-a4c6-504e4a8a28a8",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "86c9a16a5468c6e63744a37e066ac130d4018690",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "DIALOG_STARTER"
+    },
+    {
+      "id": "c4ab243e168584c9983353a28cbe226804a4f8da",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "dialog_starter_27",
+      "pattern": [
+        "geo"
+      ],
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "DIALOG_STARTER",
+          "tile": {
+            "tileData": [
+              {
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "adedc9bf-5823-433e-a69d-93cb6f417cdf",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "17bd894345d5cdd5b72b32dbffbb5ddd4f65e12c",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "DIALOG_STARTER"
+    },
+    {
+      "id": "ca076d09ec361b529b07c7183e698c48e765ee59",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "text_question_16",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT_QUESTION",
+          "tile": {
+            "tileData": [
+              {
+                "text": "And would you say your trivia skills are pretty... pretty... pretty good?",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "f92b7157-8783-40f4-8d6f-6a125cf03052",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "4b85e55082e598837f95714eb17c5a433bae9f6b",
+      "prevMessageId": "262791c29e7944e0874410041768febfb6fd80c3",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT_QUESTION",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "d4679acaf222d404cc56b1f66b9cff5615303624",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "Contestant1",
+      "pattern": [
+        "contestant",
+        "i want to become a contestant",
+        "i want to be on the show",
+        "sign me up",
+        "wanna play"
+      ],
+      "intentId": "fc75f7ee-c03a-482c-b756-f432a253e241",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "DIALOG_STARTER",
+          "tile": {
+            "tileData": [
+              {
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "f92b7157-8783-40f4-8d6f-6a125cf03052",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "5ddd09ecf4635a8817572b897d816a4304d7a857",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "DIALOG_STARTER"
+    },
+    {
+      "id": "d78f0924e1333db580fa69b9bc9cdfa17b32720a",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "text_message",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Welcome to Big Head, the internet's premier for-charity Jeopardy rip-off!",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "44c2c806-9a74-418a-ba22-7070ad1347a0",
+      "status": "ACTIVE",
+      "nextMessageId": "44a6254d82aa301d227e93c3a32040468c846566",
+      "prevMessageId": "821fdaf1e6749ad111245ec1980168925b263a6c",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "fea80a211719561cad3932b85d94f4732a6042dd",
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "userInputRequired": false,
+      "name": "quick_reply_23",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "QUICK_REPLY",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Want another one?",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "quickReplies": [
+        {
+          "type": "text",
+          "title": "Yes",
+          "payload": "yes"
+        },
+        {
+          "type": "text",
+          "title": "No",
+          "payload": "no"
+        }
+      ],
+      "group": "f04c51d2-03ee-4b80-9fef-f0f07d346eb9",
+      "status": "ACTIVE",
+      "required": true,
+      "prevMessageId": "b286caabb3aba24854b489b1bc3471da194bf038",
+      "responseMatches": [
+        {
+          "name": "Yes",
+          "conditions": [
+            {
+              "matchType": "PATTERN",
+              "patternMatch": {
+                "patterns": [
+                  "Yes",
+                  "yes",
+                  "y"
+                ],
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "7065b0bb1309197904d8f870701e9114250f5c0d"
+          },
+          "contextDataVariables": []
+        },
+        {
+          "name": "No",
+          "conditions": [
+            {
+              "matchType": "PATTERN",
+              "patternMatch": {
+                "patterns": [
+                  "No",
+                  "no",
+                  "n"
+                ],
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "44a6254d82aa301d227e93c3a32040468c846566"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "QUICK_REPLY",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      },
+      "interactionDelay": "300"
+    }
+  ],
+  "menus": [],
+  "groups": [
+    {
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "id": "44c2c806-9a74-418a-ba22-7070ad1347a0",
+      "name": "Welcome",
+      "creationTime": "2021-03-22 15:35:45",
+      "modificationTime": "2021-03-24 01:04:43",
+      "dialogType": "DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    },
+    {
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "id": "5a672fd2-2c66-4794-beab-5b308f0bff32",
+      "name": "Human",
+      "creationTime": "2021-03-24 02:23:50",
+      "modificationTime": "2021-03-24 02:23:50",
+      "dialogType": "DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    },
+    {
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "id": "5f00457c-a84f-4160-a4ba-d3d93e96884d",
+      "name": "Fallback",
+      "creationTime": "2021-03-22 15:35:45",
+      "modificationTime": "2021-03-24 01:05:03",
+      "dialogType": "FALLBACK_DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    },
+    {
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "id": "adedc9bf-5823-433e-a69d-93cb6f417cdf",
+      "name": "GEO TEST",
+      "creationTime": "2021-10-21 11:52:11",
+      "modificationTime": "2021-10-21 11:52:11",
+      "dialogType": "DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    },
+    {
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "id": "d35753f9-be11-45cf-a4c6-504e4a8a28a8",
+      "name": "Watch Big Head",
+      "creationTime": "2021-03-23 21:56:49",
+      "modificationTime": "2021-03-23 21:57:29",
+      "dialogType": "DIALOG",
+      "domainId": "0afbd541-9caf-4862-ad77-67379968dc1f",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    },
+    {
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "id": "f04c51d2-03ee-4b80-9fef-f0f07d346eb9",
+      "name": "Quiz me",
+      "creationTime": "2021-03-22 22:14:44",
+      "modificationTime": "2021-03-22 22:34:17",
+      "dialogType": "DIALOG",
+      "domainId": "0afbd541-9caf-4862-ad77-67379968dc1f",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    },
+    {
+      "chatBotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "id": "f92b7157-8783-40f4-8d6f-6a125cf03052",
+      "name": "Become a contestant1",
+      "creationTime": "2021-03-22 15:40:00",
+      "modificationTime": "2022-01-13 17:26:10",
+      "dialogType": "DIALOG",
+      "domainId": "0afbd541-9caf-4862-ad77-67379968dc1f",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    }
+  ],
+  "platforms": [
+    {
+      "id": "0d13a0a2bda16bd68ed7de2992f668f2147f9bc0",
+      "chatbotId": "bd5ebca7-2456-4c70-bb87-ee3266946a21",
+      "integrationType": "HTMLCLIENT",
+      "platform": "HTMLCLIENT",
+      "status": "NEW"
+    }
+  ],
+  "associatedDomains": [
+    {
+      "id": "0afbd541-9caf-4862-ad77-67379968dc1f",
+      "name": "Big Head Questions",
+      "chatBotPlatformUserId": "ffcb60b447594278ac34d12c480097c1",
+      "organizationId": "8306a8c1-b8db-45f7-aba9-571cedb840a6",
+      "status": "ACTIVE",
+      "creationTime": "2021-03-22 15:42:08",
+      "modificationTime": "2021-03-22 15:46:20",
+      "modifiedBy": "ffcb60b447594278ac34d12c480097c1",
+      "enableKeyPhraseMatch": false,
+      "keyPhraseMatchThreshold": 0,
+      "type": "LivePersonV2",
+      "nluShareDataAgree": true,
+      "liveIntentIds": [
+        "10e2a059-9fc0-4e71-851e-d7b3561db127",
+        "22c9b9c9-1c7e-4665-b529-1a83c876e1d5",
+        "6b2ff623-0932-4557-a23d-ae7529ad94f7",
+        "9a8cbe7b-e5b9-4987-b77c-1b374c3ac4a4",
+        "fc75f7ee-c03a-482c-b756-f432a253e241"
+      ],
+      "acceptMaskedMessages": false,
+      "language": "en-US",
+      "domainOrigin": "USER",
+      "primary": true,
+      "intentAnalyzerEnabled": true,
+      "hasLiveIntents": true
+    }
+  ],
+  "associatedIntents": [
+    {
+      "id": "9a8cbe7b-e5b9-4987-b77c-1b374c3ac4a4",
+      "name": "Quiz me",
+      "displayName": "Quiz me",
+      "domainId": "0afbd541-9caf-4862-ad77-67379968dc1f",
+      "domain": "Big Head Questions",
+      "modifiedBy": "ffcb60b447594278ac34d12c480097c1",
+      "type": "INTENT",
+      "isLiveIntent": true,
+      "intentOrigin": "USER"
+    },
+    {
+      "id": "22c9b9c9-1c7e-4665-b529-1a83c876e1d5",
+      "name": "How do I watch the show?",
+      "displayName": "How do I watch the show?",
+      "domainId": "0afbd541-9caf-4862-ad77-67379968dc1f",
+      "domain": "Big Head Questions",
+      "modifiedBy": "ffcb60b447594278ac34d12c480097c1",
+      "type": "INTENT",
+      "isLiveIntent": true,
+      "intentOrigin": "USER"
+    },
+    {
+      "id": "fc75f7ee-c03a-482c-b756-f432a253e241",
+      "name": "I want to become a contestant",
+      "displayName": "I want to become a contestant",
+      "domainId": "0afbd541-9caf-4862-ad77-67379968dc1f",
+      "domain": "Big Head Questions",
+      "modifiedBy": "ffcb60b447594278ac34d12c480097c1",
+      "type": "INTENT",
+      "isLiveIntent": true,
+      "intentOrigin": "USER"
+    }
+  ],
+  "dialogTemplates": []
+}
