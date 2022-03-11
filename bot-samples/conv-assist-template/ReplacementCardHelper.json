@@ -1,0 +1,1075 @@
+{
+  "hash": "280820966",
+  "bot": {
+    "id": "58715753-f191-464b-b620-241396714af2",
+    "name": "ReplacementCardHelper",
+    "chatBotType": "CUSTOMER_FACING_BOT",
+    "description": "Conv. Assist Bot to handle replacement card flow",
+    "status": "NEW",
+    "getStartedButtonPayload": "hi",
+    "creationTime": 1646689356630,
+    "modificationTime": 1647026989461,
+    "demo": false,
+    "skipNLP": false,
+    "language": "en-US",
+    "botAttributes": {
+      "ENABLE_AGENT_ANNOTATIONS": "false",
+      "ENABLE_DEBUG": "true",
+      "PCS_FALLBACK_LIMIT": "3"
+    },
+    "sessionLength": 0,
+    "passThroughMode": false,
+    "transcriptDisabled": false,
+    "version": "2",
+    "publicBot": false,
+    "readOnly": false
+  },
+  "responder": [],
+  "requiredContext": [],
+  "conversationMessage": [
+    {
+      "id": "52b27b414efd859af7f37c9c17fe9f9618d1736a",
+      "chatBotId": "58715753-f191-464b-b620-241396714af2",
+      "userInputRequired": false,
+      "name": "why no proceed",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT_QUESTION",
+          "tile": {
+            "tileData": [
+              {
+                "text": "No problem - I'll have my human colleague take this conversation over. First, could you let us know why you don't want to proceed with the replacement card?",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "processUserResponse": "var currentMessage = botContext.getCurrentUserMessage();\nbotContext.logCustomEvent('user message: ' + currentMessage, 'Replacement Card - Failure', '');",
+      "group": "bc2fcbd9-b941-46e9-9028-9b2dcc8bb79a",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "c5ca9509385f5ce10a0a1c4d8c721d9e9af17ac7",
+      "prevMessageId": "87f2fe120a958b9d55e4b792474e69aab6a4ae68",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "a062ea09de727e2b0866f0a2c4831c74f5e3fa63"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT_QUESTION",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "56164a120c3bcc87a9987a22c9af03a5ec374248",
+      "chatBotId": "58715753-f191-464b-b620-241396714af2",
+      "userInputRequired": false,
+      "name": "no more help",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Have a great rest of your day and please come back any time.",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "bc2fcbd9-b941-46e9-9028-9b2dcc8bb79a",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "a062ea09de727e2b0866f0a2c4831c74f5e3fa63",
+      "prevMessageId": "c5ca9509385f5ce10a0a1c4d8c721d9e9af17ac7",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "close_conversation"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "7fce62f50864716eb57baab4d2b276f2dc5f1712",
+      "chatBotId": "58715753-f191-464b-b620-241396714af2",
+      "userInputRequired": false,
+      "name": "confirm address",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "QUICK_REPLY",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Please confirm where to send the new card. Is {$botContext.userAddress} the correct mailing address?",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "quickReplies": [
+        {
+          "type": "text",
+          "title": "Yes",
+          "payload": "Yes"
+        },
+        {
+          "type": "text",
+          "title": "No",
+          "payload": "No"
+        }
+      ],
+      "group": "bc2fcbd9-b941-46e9-9028-9b2dcc8bb79a",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "b74d5f8f4f2a490971eaaf42abcd8db7967c7a60",
+      "prevMessageId": "bc091c4ea4d7719508268576624894c9227a0f34",
+      "responseMatches": [
+        {
+          "name": "address correct",
+          "conditions": [
+            {
+              "matchType": "PATTERN",
+              "patternMatch": {
+                "patterns": [
+                  "yes",
+                  "yeah",
+                  "yup",
+                  "yep",
+                  "ok",
+                  "sure",
+                  "agree",
+                  "alright",
+                  "okay",
+                  "yes please",
+                  "right on",
+                  "that works",
+                  "sweet",
+                  "sounds good",
+                  "good",
+                  "correct",
+                  "right",
+                  "absolutely"
+                ],
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "bc4089aada1b148aaf90cf39465f05dcf1bbd3af"
+          },
+          "contextDataVariables": []
+        },
+        {
+          "name": "address wrong",
+          "conditions": [
+            {
+              "matchType": "PATTERN",
+              "patternMatch": {
+                "patterns": [
+                  "no",
+                  "nah",
+                  "nope",
+                  "no thanks",
+                  "wrong",
+                  "*(incorrect)",
+                  "*(disagree)",
+                  "no way",
+                  "*(not right)",
+                  "*(don't|do not) agree*",
+                  "absolutely not"
+                ],
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "b74d5f8f4f2a490971eaaf42abcd8db7967c7a60"
+          },
+          "contextDataVariables": []
+        },
+        {
+          "name": "no match",
+          "conditions": [
+            {
+              "matchType": "NO_MATCH",
+              "noMatch": {
+                "fallbackMessage": "Please choose from the available options."
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "7fce62f50864716eb57baab4d2b276f2dc5f1712"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "QUICK_REPLY",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "86d7003c9fb47af0cb1fc316950eaf5197a4dba2",
+      "chatBotId": "58715753-f191-464b-b620-241396714af2",
+      "userInputRequired": false,
+      "name": "fallback_starter",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "BLANK_MESSAGE",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "preProcessMessage": "botContext.setBotVariable(\"flowComplete\", \"true\");",
+      "group": "c09695b7-e8b7-4567-a75a-0c317b868ca5",
+      "status": "ACTIVE",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "none"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "87f2fe120a958b9d55e4b792474e69aab6a4ae68",
+      "chatBotId": "58715753-f191-464b-b620-241396714af2",
+      "userInputRequired": false,
+      "name": "proceed?",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "QUICK_REPLY",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Shall I proceed with the replacement card process? Your new card should arrive within 5-7 business days.",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "quickReplies": [
+        {
+          "type": "text",
+          "title": "Yes",
+          "payload": "Yes"
+        },
+        {
+          "type": "text",
+          "title": "No",
+          "payload": "No"
+        }
+      ],
+      "group": "bc2fcbd9-b941-46e9-9028-9b2dcc8bb79a",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "52b27b414efd859af7f37c9c17fe9f9618d1736a",
+      "prevMessageId": "bc4089aada1b148aaf90cf39465f05dcf1bbd3af",
+      "responseMatches": [
+        {
+          "name": "proceed",
+          "conditions": [
+            {
+              "matchType": "PATTERN",
+              "patternMatch": {
+                "patterns": [
+                  "yes",
+                  "yeah",
+                  "yup",
+                  "yep",
+                  "ok",
+                  "sure",
+                  "agree",
+                  "alright",
+                  "okay",
+                  "yes please",
+                  "right on",
+                  "that works",
+                  "sweet",
+                  "sounds good",
+                  "good",
+                  "correct",
+                  "right",
+                  "absolutely"
+                ],
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "c5ca9509385f5ce10a0a1c4d8c721d9e9af17ac7"
+          },
+          "contextDataVariables": [
+            {
+              "name": "proceed",
+              "value": "true",
+              "scope": "SESSION"
+            }
+          ]
+        },
+        {
+          "name": "do not proceed",
+          "conditions": [
+            {
+              "matchType": "PATTERN",
+              "patternMatch": {
+                "patterns": [
+                  "no",
+                  "nah",
+                  "nope",
+                  "no thanks",
+                  "wrong",
+                  "*(incorrect)",
+                  "*(disagree)",
+                  "no way",
+                  "*(not right)",
+                  "*(don't|do not) agree*",
+                  "absolutely not"
+                ],
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": [
+            {
+              "name": "proceed",
+              "value": "false",
+              "scope": "SESSION"
+            }
+          ]
+        }
+      ],
+      "interactionType": "QUICK_REPLY",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "8cbcac558b9bee14d8cae6320b4fbadd43738999",
+      "chatBotId": "58715753-f191-464b-b620-241396714af2",
+      "userInputRequired": false,
+      "name": "intro text and custom event",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Hi! I can help you replace your card and optionally put a hold on your previous card.",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "preProcessMessage": "var flowComplete = botContext.getBotVariable(\"flowComplete\");\nif (flowComplete == \"true\") {\n  botContext.setTriggerNextMessage('fallback_starter');\n}\n\nvar currentMessage = botContext.getCurrentUserMessage();\nbotContext.logCustomEvent('user message: ' + currentMessage, 'Replacement Card - Start', '');",
+      "group": "bc2fcbd9-b941-46e9-9028-9b2dcc8bb79a",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "f2d1dcd1dde0079e531900ac341f50ce61ef87d7",
+      "prevMessageId": "ae45f8f0cf1e9f7f780c4c435328b45c84385391",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "a062ea09de727e2b0866f0a2c4831c74f5e3fa63",
+      "chatBotId": "58715753-f191-464b-b620-241396714af2",
+      "userInputRequired": false,
+      "name": "more help",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "OK - your agent should be returning in a moment to assist you.",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "preProcessMessage": "botContext.setBotVariable(\"flowComplete\", \"true\", true, false);",
+      "group": "bc2fcbd9-b941-46e9-9028-9b2dcc8bb79a",
+      "status": "ACTIVE",
+      "required": true,
+      "prevMessageId": "56164a120c3bcc87a9987a22c9af03a5ec374248",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "none"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "ae45f8f0cf1e9f7f780c4c435328b45c84385391",
+      "chatBotId": "58715753-f191-464b-b620-241396714af2",
+      "userInputRequired": false,
+      "name": "replace card starter",
+      "intentId": "e4bea449-96f1-4d41-af38-a6ac279551a5",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "DIALOG_STARTER",
+          "tile": {
+            "tileData": [
+              {
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "group": "bc2fcbd9-b941-46e9-9028-9b2dcc8bb79a",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "8cbcac558b9bee14d8cae6320b4fbadd43738999",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "DIALOG_STARTER"
+    },
+    {
+      "id": "b74d5f8f4f2a490971eaaf42abcd8db7967c7a60",
+      "chatBotId": "58715753-f191-464b-b620-241396714af2",
+      "userInputRequired": false,
+      "name": "what is your address?",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT_QUESTION",
+          "tile": {
+            "tileData": [
+              {
+                "text": "What is your current mailing address?",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "processUserResponse": "var newAddress = botContext.getCurrentUserMessage();\nbotContext.setBotVariable(\"userAddress\", newAddress, true, false);",
+      "group": "bc2fcbd9-b941-46e9-9028-9b2dcc8bb79a",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "bc4089aada1b148aaf90cf39465f05dcf1bbd3af",
+      "prevMessageId": "7fce62f50864716eb57baab4d2b276f2dc5f1712",
+      "responseMatches": [
+        {
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "7fce62f50864716eb57baab4d2b276f2dc5f1712"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT_QUESTION",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "bc091c4ea4d7719508268576624894c9227a0f34",
+      "chatBotId": "58715753-f191-464b-b620-241396714af2",
+      "userInputRequired": false,
+      "name": "hold?",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "QUICK_REPLY",
+          "tile": {
+            "tileData": [
+              {
+                "text": "OK - your {$botContext.card}. Would you like to put a hold on your old card?",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "quickReplies": [
+        {
+          "type": "text",
+          "title": "Yes",
+          "payload": "Yes"
+        },
+        {
+          "type": "text",
+          "title": "No",
+          "payload": "No"
+        }
+      ],
+      "group": "bc2fcbd9-b941-46e9-9028-9b2dcc8bb79a",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "7fce62f50864716eb57baab4d2b276f2dc5f1712",
+      "prevMessageId": "f2d1dcd1dde0079e531900ac341f50ce61ef87d7",
+      "responseMatches": [
+        {
+          "name": "hold",
+          "conditions": [
+            {
+              "matchType": "PATTERN",
+              "patternMatch": {
+                "patterns": [
+                  "yes",
+                  "yeah",
+                  "yup",
+                  "yep",
+                  "ok",
+                  "sure",
+                  "agree",
+                  "alright",
+                  "okay",
+                  "yes please",
+                  "right on",
+                  "that works",
+                  "sweet",
+                  "sounds good",
+                  "good",
+                  "correct",
+                  "right",
+                  "absolutely"
+                ],
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": [
+            {
+              "name": "hold",
+              "value": "true",
+              "scope": "SESSION"
+            }
+          ]
+        },
+        {
+          "name": "no hold",
+          "conditions": [
+            {
+              "matchType": "PATTERN",
+              "patternMatch": {
+                "patterns": [
+                  "no",
+                  "nah",
+                  "nope",
+                  "no thanks",
+                  "wrong",
+                  "*(incorrect)",
+                  "*(disagree)",
+                  "no way",
+                  "*(not right)",
+                  "*(don't|do not) agree*",
+                  "absolutely not"
+                ],
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": [
+            {
+              "name": "hold",
+              "value": "false",
+              "scope": "SESSION"
+            }
+          ]
+        },
+        {
+          "name": "no match",
+          "conditions": [
+            {
+              "matchType": "NO_MATCH",
+              "noMatch": {
+                "fallbackMessage": "Please choose from the available options."
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "bc091c4ea4d7719508268576624894c9227a0f34"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "QUICK_REPLY",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "bc4089aada1b148aaf90cf39465f05dcf1bbd3af",
+      "chatBotId": "58715753-f191-464b-b620-241396714af2",
+      "userInputRequired": false,
+      "name": "confirm automation",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "TEXT",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Thank you. We will send out a new {$botContext.card} to {$botContext.userAddress}. We {$botContext.holdOrNot} put a hold on your old card.",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "preProcessMessage": "var hold = botContext.getBotVariable(\"hold\");\n\nif (hold == \"true\") {\n botContext.setBotVariable(\"holdOrNot\", \"will\", true, false); \n} else {\n botContext.setBotVariable(\"holdOrNot\", \"will not\", true, false);\n}",
+      "group": "bc2fcbd9-b941-46e9-9028-9b2dcc8bb79a",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "87f2fe120a958b9d55e4b792474e69aab6a4ae68",
+      "prevMessageId": "b74d5f8f4f2a490971eaaf42abcd8db7967c7a60",
+      "responseMatches": [
+        {
+          "name": "RULE_1",
+          "conditions": [],
+          "contextConditions": [],
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "TEXT"
+    },
+    {
+      "id": "c5ca9509385f5ce10a0a1c4d8c721d9e9af17ac7",
+      "chatBotId": "58715753-f191-464b-b620-241396714af2",
+      "userInputRequired": false,
+      "name": "more help?",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "QUICK_REPLY",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Your replacement card is on the way! Do you need any more help today?",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "preProcessMessage": "var currentMessage = botContext.getCurrentUserMessage();\nbotContext.logCustomEvent('user message: ' + currentMessage, 'Replacement Card - Success', '');",
+      "quickReplies": [
+        {
+          "type": "text",
+          "title": "Yes",
+          "payload": "Yes"
+        },
+        {
+          "type": "text",
+          "title": "No",
+          "payload": "No"
+        }
+      ],
+      "group": "bc2fcbd9-b941-46e9-9028-9b2dcc8bb79a",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "56164a120c3bcc87a9987a22c9af03a5ec374248",
+      "prevMessageId": "52b27b414efd859af7f37c9c17fe9f9618d1736a",
+      "responseMatches": [
+        {
+          "name": "no more help",
+          "conditions": [
+            {
+              "matchType": "PATTERN",
+              "patternMatch": {
+                "patterns": [
+                  "no",
+                  "nah",
+                  "nope",
+                  "no thanks",
+                  "wrong",
+                  "*(incorrect)",
+                  "*(disagree)",
+                  "no way",
+                  "*(not right)",
+                  "*(don't|do not) agree*",
+                  "absolutely not"
+                ],
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "56164a120c3bcc87a9987a22c9af03a5ec374248"
+          },
+          "contextDataVariables": []
+        },
+        {
+          "name": "more help",
+          "conditions": [
+            {
+              "matchType": "PATTERN",
+              "patternMatch": {
+                "patterns": [
+                  "yes",
+                  "yeah",
+                  "yup",
+                  "yep",
+                  "ok",
+                  "sure",
+                  "agree",
+                  "alright",
+                  "okay",
+                  "yes please",
+                  "right on",
+                  "that works",
+                  "sweet",
+                  "sounds good",
+                  "good",
+                  "correct",
+                  "right",
+                  "absolutely"
+                ],
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "a062ea09de727e2b0866f0a2c4831c74f5e3fa63"
+          },
+          "contextDataVariables": []
+        },
+        {
+          "name": "no match",
+          "conditions": [
+            {
+              "matchType": "NO_MATCH",
+              "noMatch": {
+                "fallbackMessage": "Please choose from the available options."
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "c5ca9509385f5ce10a0a1c4d8c721d9e9af17ac7"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "QUICK_REPLY",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    },
+    {
+      "id": "f2d1dcd1dde0079e531900ac341f50ce61ef87d7",
+      "chatBotId": "58715753-f191-464b-b620-241396714af2",
+      "userInputRequired": false,
+      "name": "which card?",
+      "type": "BOT_MESSAGE",
+      "content": {
+        "contentType": "STATIC",
+        "results": {
+          "type": "QUICK_REPLY",
+          "tile": {
+            "tileData": [
+              {
+                "text": "Which card do you need replaced?",
+                "buttons": [],
+                "quickReplyList": []
+              }
+            ]
+          }
+        }
+      },
+      "quickReplies": [
+        {
+          "type": "text",
+          "title": "Credit Card",
+          "payload": "Credit Card"
+        },
+        {
+          "type": "text",
+          "title": "Debit Card",
+          "payload": "Debit Card"
+        }
+      ],
+      "group": "bc2fcbd9-b941-46e9-9028-9b2dcc8bb79a",
+      "status": "ACTIVE",
+      "required": true,
+      "nextMessageId": "bc091c4ea4d7719508268576624894c9227a0f34",
+      "prevMessageId": "8cbcac558b9bee14d8cae6320b4fbadd43738999",
+      "responseMatches": [
+        {
+          "name": "card chosen",
+          "conditions": [
+            {
+              "matchType": "REGEX",
+              "regexMatch": {
+                "regexText": "(Debit Card|Credit Card)",
+                "excludeKeywords": []
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "next"
+          },
+          "contextDataVariables": [
+            {
+              "name": "card",
+              "value": "{$userMessage}",
+              "scope": "SESSION"
+            }
+          ]
+        },
+        {
+          "name": "no match",
+          "conditions": [
+            {
+              "matchType": "NO_MATCH",
+              "noMatch": {
+                "fallbackMessage": "Please choose from the available options."
+              }
+            }
+          ],
+          "contextConditions": [],
+          "contextMatchConditionType": "ANY",
+          "action": {
+            "name": "INTERACTION",
+            "value": "f2d1dcd1dde0079e531900ac341f50ce61ef87d7"
+          },
+          "contextDataVariables": []
+        }
+      ],
+      "interactionType": "QUICK_REPLY",
+      "changeResponse": {
+        "enabled": true
+      },
+      "cancelResponse": {
+        "enabled": true
+      }
+    }
+  ],
+  "menus": [],
+  "groups": [
+    {
+      "chatBotId": "58715753-f191-464b-b620-241396714af2",
+      "id": "bc2fcbd9-b941-46e9-9028-9b2dcc8bb79a",
+      "name": "1 Replacement Card",
+      "creationTime": "2022-03-07 16:42:36",
+      "modificationTime": "2022-03-11 14:25:59",
+      "dialogType": "DIALOG",
+      "domainId": "64e1ce19-2631-4e15-8318-682a9aa19fb5",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    },
+    {
+      "chatBotId": "58715753-f191-464b-b620-241396714af2",
+      "id": "c09695b7-e8b7-4567-a75a-0c317b868ca5",
+      "name": "2 Fallback",
+      "creationTime": "2022-03-07 16:42:36",
+      "modificationTime": "2022-03-07 16:42:36",
+      "dialogType": "FALLBACK_DIALOG",
+      "status": "ENABLED",
+      "disambiguteOnlySelectedDomains": false
+    }
+  ],
+  "globalFunctions": {
+    "chatBotId": "58715753-f191-464b-b620-241396714af2",
+    "methods": "function __initConversation() { \n  // get information needed to remove bot from conversation via integration\n  botContext.setBotVariable(\"userAddress\", \"1234 Westchester Lane, Richmond, VA, 23221\", true, false);\n  botContext.setBotVariable(\"flowComplete\", \"false\", true, false);\n}",
+    "creationTime": "2022-03-07 16:42:36",
+    "modificationTime": "2022-03-11 14:24:03"
+  },
+  "platforms": [
+    {
+      "id": "4090095f4cbf17d7259804e7d18dfbafca4a0971",
+      "chatbotId": "58715753-f191-464b-b620-241396714af2",
+      "integrationType": "HTMLCLIENT",
+      "platform": "HTMLCLIENT",
+      "status": "NEW"
+    }
+  ],
+  "associatedDomains": [
+    {
+      "id": "64e1ce19-2631-4e15-8318-682a9aa19fb5",
+      "name": "LP_Finance",
+      "chatBotPlatformUserId": "ffcb60b447594278ac34d12c480097c1",
+      "organizationId": "8306a8c1-b8db-45f7-aba9-571cedb840a6",
+      "status": "ACTIVE",
+      "creationTime": "2021-07-30 14:44:41",
+      "modificationTime": "2022-03-09 13:20:22",
+      "modifiedBy": "ffcb60b447594278ac34d12c480097c1",
+      "enableKeyPhraseMatch": false,
+      "keyPhraseMatchThreshold": 0,
+      "type": "LivePersonV2",
+      "nluShareDataAgree": false,
+      "acceptMaskedMessages": false,
+      "language": "en-US",
+      "domainOrigin": "GLOBAL",
+      "verticalType": "Finance",
+      "verticalName": "LP_Finance",
+      "intentAnalyzerEnabled": false,
+      "primary": false,
+      "hasLiveIntents": false
+    }
+  ],
+  "associatedIntents": [
+    {
+      "id": "e4bea449-96f1-4d41-af38-a6ac279551a5",
+      "name": "ask about replacement card",
+      "displayName": "ask about replacement card",
+      "domainId": "64e1ce19-2631-4e15-8318-682a9aa19fb5",
+      "modifiedBy": "ffcb60b447594278ac34d12c480097c1",
+      "isLiveIntent": false,
+      "intentOrigin": "GLOBAL"
+    }
+  ],
+  "dialogTemplates": []
+}
