@@ -23,3 +23,6 @@ This bot provides a plug-and-play example of a bot designed to be used by Conver
 6. As the agent, click the suggestion to delegate the conversation to the bot.
 7. As the consumer, go through the conversational flow.
 8. Once the conversation is completed, go into Bot Analytics -> Custom Events to see the logging for the conversation.
+
+https://user-images.githubusercontent.com/25466659/157957640-5b629aa6-2a65-4418-9bd6-f4dde37a2642.mov
+
