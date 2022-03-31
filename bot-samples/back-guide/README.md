@@ -8,7 +8,7 @@ This bot template provides a solution enabling consumers to return back to the p
 
 # Video of the Solution in Action
 
-todo
+https://user-images.githubusercontent.com/25466659/161154648-53cdf329-0b15-437c-b944-2e165d16d4c9.mov
 
 # Implementation Instructions
 
