@@ -1,4 +1,6 @@
-This bot template provides an example solution for enabling consumers to return back to the previous interaction in a LivePerson bot. It provides examples of going back in three ways:
+# Description
+
+This bot template provides a solution enabling consumers to return back to the previous interaction in a LivePerson bot. It includes examples of going back in three ways:
 
 - An utterance (eg. 'back') triggers a custom rule taking the consumer back to the previous interaction
 - A button click triggers a custom rule taking the consumer back to the previous interaction
@@ -6,20 +8,20 @@ This bot template provides an example solution for enabling consumers to return 
 
 # Video of the Solution in Action
 
-to add
+todo
 
 # Implementation Instructions
 
 All of this functionality is accomplished with two functions defined in the Global Functions of the bot, `trail` and `goBack`.
 
-### trail
+### Trail
 
 ```js
 function trail (val) { 
     var ih = botContext.getBotVariable("interactionHistory"); 
     ih = ih ? JSON.parse(ih) : []; // Parse the interaction history or make a new array if it doesn't exist
     ih.push(val); 
-    botContext.printDebugMessage("array: " + JSON.stringify(ih)); 
+    botContext.printDebugMessage("interaction history: " + JSON.stringify(ih)); 
     botContext.setBotVariable("interactionHistory", JSON.stringify(ih), true, false); // Stringify the interaction history and save it as a bot variable
 }
 ```
@@ -34,7 +36,7 @@ For an interaction named 'ask_user_their_birthday', you would put the following 
 trail('ask_user_their_birthday');
 ```
 
-### goBack
+### GoBack
 
 ```js
 function goBack () { 
