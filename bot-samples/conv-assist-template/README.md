@@ -21,6 +21,7 @@ This bot provides a plug-and-play example of a bot designed to be used by Conver
 4. Go into the Conversation Assist settings and turn on the `ReplacementCardHelper` bot as a recommendation source for the skill associated with your test campaign.
 5. Use the [Web Messaging emulator](https://developers.liveperson.com/web-messaging/emulator.html) to conduct a test chat with yourself. Have the consumer ask something like "I need a new card" which will trigger the Conversation Assist suggestion to the agent.
 6. As the agent, click the suggestion to delegate the conversation to the bot.
+![image](https://user-images.githubusercontent.com/25466659/161855607-279f3ccc-4a50-461a-a91e-f73c1e25e653.png)
 7. As the consumer, go through the conversational flow.
 8. Once the conversation is completed, go into Bot Analytics -> Custom Events to see the logging for the conversation.
 
